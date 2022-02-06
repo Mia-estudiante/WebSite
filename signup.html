@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="signup.css">
+    
+    <!-- JS -->
+    <script src="signup.js" defer></script>
+
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+
+    <!-- Favicon error -->
+    <!-- <link rel="icon" href="data:;base64,iVBORw0KGgo="> -->
+</head>
+<body>
+    <header class="signupHeader">
+        <a href="index.html"><img class="smalllogo" src="img/popcorn.png" alt="sitelogo"> </a>
+        <button id="signin">로그인</button>
+    </header>
+    <section class="container">
+        <div class="signupForm">
+            <p id="singupTitle">회원가입</p>
+            <article class="containerItem1">
+                <div class="emailContainer1">
+                    <label for="email">이메일</label>
+                    <input type="email" id="email" placeholder="이메일 주소를 입력해주세요." required>
+                </div>
+                <div class="emailContainer2">
+                    <label for="emailVerifi">이메일 인증</label>
+                    <div class="verifi">
+                        <span id="validTime">3분 00초</span>
+                        <input type="text" id="emailVerifi" placeholder="인증번호를 입력해주세요." required>
+                        <button id="emailCheck">인증요청</button>
+                    </div>
+                    <!-- <span class="alert">잘못된 인증번호입니다. 인증번호 재발급 시 인증요청 버튼을 눌러주세요.</span> -->
+                    <!-- <span class="alert">인증번호 재발급 시 인증요청 버튼을 눌러주세요.</span> -->
+                </div>
+                <div class="item6">
+                    <button id="nextBtn">다음으로</button>  
+                </div>
+            </article>
+            <article class="containerItem2" style="display: none;">
+            <!-- <form action="/" method="post"> -->
+                <div class="item1">
+                    <label for="emailComp">이메일 인증 완료</label>
+                    <input type="email" id="emailComp" readonly> 
+                </div>
+                <div class="item2">
+                    <label for="pw">비밀번호</label>
+                    <input type="password" id="pw" placeholder= "비밀번호를 입력해주세요." required>
+                    <!-- <span id="alert3">8~16자 영문, 숫자, 특수문자를 사용하세요.</span> -->
+                </div>
+                <div class="item3">
+                    <label for="pwdouble">비밀번호 재확인</label>
+                    <input type="password" id="pwdouble" placeholder="비밀번호를 다시 입력해주세요." required>
+                    <!-- <span id="alert4">비밀번호가 일치하지 않습니다.</span> -->
+                </div>
+                <div class="item4">
+                    <label for="name">이름</label>
+                    <input type="text" id="name" placeholder="이름을 입력해주세요." required>
+                    <!-- <span id="alert4">비밀번호가 일치하지 않습니다.</span> -->
+                </div>
+                <div class="item5">
+                    <label for="year">생년월일</label>
+                    <div class="selects">
+                        <select id="year">
+                            <option value="none">년도</option>
+                        </select>
+                        <select id="month">
+                            <option value="none">월</option>
+                        </select>
+                        <select id="date">
+                            <option value="none">일</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item6">
+                    <button id="signupBtn" type="submit" formmethod="post">가입하기</button>
+                </div>
+            <!-- </form> -->
+            </article>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,116 @@
+:root {
+  /* color */
+  --color-logo: #e91e63;
+  --color-bg: #12005e;
+  --color-font: #f0f4f5;
+
+  /* size */
+  --size-logo: 7em;
+  --size-font: 1em;
+}
+
+html,
+body {
+  background-image: url("img/theater.jpg");
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  background-color: transparent;
+  color: var(--color-font);
+  font-family: "Gowun Dodum", sans-serif;
+}
+
+/* Header */
+header {
+  margin-top: 2em;
+}
+
+.biglogo {
+  width: var(--size-logo);
+  height: var(--size-logo);
+}
+
+/* Section-Intro */
+.intro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  width: 50%;
+  height: 50%;
+  font-size: calc(1.5 * var(--size-font));
+}
+
+/* (animation-name) (duration) (delay) (iteration-count) 
+(timing-function) (direction)*/
+.fadein {
+  animation: fadein 3s 3s infinite linear alternate;
+  /* -webkit-animation: fadein 3s; */
+  /* -moz-animation: fadein 3s 3s infinite linear alternate;
+  -ms-animation: fadein 3s 3s infinite linear alternate;
+  -o-animation: fadein 3s 3s infinite linear alternate; */
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* .fadeout {
+  animation: fadeout 3s;
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+} */
+
+#signup,
+#signin {
+  font-family: "Gowun Dodum", sans-serif;
+}
+
+.btns {
+  width: 20vh;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border: none;
+}
+
+button {
+  transition: transform 300ms ease;
+}
+
+#signin,
+#signup {
+  background-color: transparent;
+  padding: 1em;
+  margin-bottom: 1em;
+  font-size: var(--size-font);
+  border: 2px solid red;
+  border-radius: 10%;
+  color: var(--color-font);
+}
+
+#signup:hover,
+#signin:hover {
+  cursor: pointer;
+  background-color: red;
+  transform: scale(1.1);
+}

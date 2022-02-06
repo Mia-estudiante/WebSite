@@ -1,0 +1,174 @@
+:root {
+  /* color */
+  --color-logo: #e91e63;
+  --color-font: #f0f4f5;
+
+  /* size */
+  --size-logo: 7em;
+  --size-small-logo: 4em;
+  --size-font: 1em;
+  --size-padding: 2em;
+}
+
+* {
+  margin: 0;
+  color: black;
+  font-family: "Gowun Dodum", sans-serif;
+}
+
+html,
+body {
+  background-image: url("img/theater.jpg");
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background-color: transparent;
+}
+
+/********************************************************* Header */
+.signupHeader {
+  padding: var(--size-padding);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.smalllogo {
+  width: var(--size-small-logo);
+  height: var(--size-small-logo);
+}
+
+#signin,
+#signupBtn,
+#nextBtn {
+  background-color: transparent;
+  padding: calc(var(--size-padding) * 0.5);
+  font-size: var(--size-font);
+  border: 2px solid red;
+  border-radius: 10%;
+  color: var(--color-font);
+  transition: transform 300ms ease;
+}
+
+#signin:hover,
+#signupBtn:hover,
+#nextBtn:hover {
+  cursor: pointer;
+  background-color: red;
+  transform: scale(1.1);
+}
+/********************************************************* Header */
+
+/********************************************************* signupForm */
+.container {
+  width: 100%;
+  height: 80%;
+  padding-bottom: calc(0.5 * var(--size-padding));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.signupForm {
+  border-radius: 3px;
+  width: 70%;
+  height: 90%;
+  background-color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  flex-direction: column;
+}
+
+#singupTitle {
+  padding-top: calc(var(--size-padding) * 0.5);
+  font-size: calc(0.5 * var(--size-small-logo));
+  font-weight: bold;
+}
+
+.containerItem1,
+.containerItem2 {
+  width: 80%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  /* box-sizing: border-box; */
+}
+
+/********************************************************* containerItem1 */
+
+.emailContainer1,
+.emailContainer2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+[id^="alert"] {
+  color: var(--color-logo);
+  font-size: calc(0.9 * var(--size-font));
+  font-weight: bold;
+}
+
+.verifi {
+  display: flex;
+  flex-direction: row;
+}
+
+#validTime,
+#emailVerifi,
+#emailCheck {
+  flex-grow: 1;
+}
+
+#validTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: calc(0.8 * var(--size-font));
+  /* width: 10%; */
+}
+
+[class^="item"] {
+  display: flex;
+  flex-direction: column;
+  /* width: 70%;
+  padding-bottom: 2em; */
+}
+
+.item6 {
+  align-items: center;
+}
+
+/********************************************************* containerItem1 */
+/********************************************************* containerItem2 */
+
+.selects {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+}
+
+select {
+  flex-grow: 1;
+}
+/********************************************************* containerItem2 */
+
+/********************************************************* signupForm */
+
+@media screen and (min-width: 52em) {
+  input {
+    /* width: 50%; */
+  }
+
+  .emailContainer1 {
+    /* width: 70%; */
+  }
+
+  .signupForm {
+    width: 40%;
+  }
+}
