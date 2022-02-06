@@ -235,20 +235,12 @@ signupBtn.addEventListener("click", () => {
   //   alert("가입 완료!");
 
   //////////////////////////////////////////////////////////////////////////////이때 정보 저장
-  const id = email.value;
-  const pw = pwInput.value;
-  const name = nameInput.value;
-  const birthYear = year.value;
-  const birthMonth = month.value;
-  const birthDate = date.value;
 
   const obj = {
-    id: id,
-    pw: pw,
-    name: name,
-    year: birthYear,
-    month: birthMonth,
-    date: birthDate,
+    id: email.value,
+    pw: pwInput.value,
+    name: nameInput.value,
+    birth: `${year.value}-${month.value}-${date.value}`,
   };
 
   fetch("http://localhost:8080/signup", {
