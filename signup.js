@@ -148,6 +148,13 @@ for (let i = 1; i <= 31; i++) {
   selectDate.append(element);
 }
 
+//모달창 닫기 버튼
+const modal = document.querySelector(".modalContainer");
+const closeBtn = document.querySelector("#closeBtn");
+closeBtn.addEventListener("click", () => {
+  modal.classList.remove("showModal");
+});
+
 //영문 숫자 특수문자 혼합해서 8자리~16자리
 const pwRule =
   /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
@@ -231,33 +238,35 @@ signupBtn.addEventListener("click", () => {
     date.style.border = "3px solid #9cff57";
   }
 
-  // if (ispwValid && doubleCheck && nameCheck && birthCheck) {
-  //   alert("가입 완료!");
+  if (ispwValid && doubleCheck && nameCheck && birthCheck) {
+    //가입완료 modal
+    modal.classList.add("showModal");
 
-  //////////////////////////////////////////////////////////////////////////////이때 정보 저장
+    //////////////////////////////////////////////////////////////////////////////이때 정보 저장
 
-  const obj = {
-    id: email.value,
-    pw: pwInput.value,
-    name: nameInput.value,
-    birth: `${year.value}-${month.value}-${date.value}`,
-  };
+    const obj = {
+      id: email.value,
+      pw: pwInput.value,
+      name: nameInput.value,
+      birth: `${year.value}-${month.value}-${date.value}`,
+    };
 
-  fetch("http://localhost:8080/signup", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      data: obj,
-    }),
-  });
+    fetch("http://localhost:8080/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        data: obj,
+      }),
+    });
 
-  //     mysql
-  // email 		        pw		            name   year    month	 date
-  // 이메일 주소 / 비밀번호(by 암호화) / 이름 / 년도 /  월 /  일
+    //     mysql
+    // email 		        pw		            name   year    month	 date
+    // 이메일 주소 / 비밀번호(by 암호화) / 이름 / 년도 /  월 /  일
 
-  //////////////////////////////////////////////////////////////////////////////이때 정보 저장
+    //////////////////////////////////////////////////////////////////////////////이때 정보 저장
 
-  // window.location.href = "index.html";   //가입 완료 후, 메인 페이지로 이동
+    // window.location.href = "index.html";   //가입 완료 후, 메인 페이지로 이동
+  }
 });

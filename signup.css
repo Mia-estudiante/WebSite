@@ -155,6 +155,41 @@ body {
 select {
   flex-grow: 1;
 }
+
+/******** modal창 구현 **********/
+.modalContainer {
+  display: none;
+}
+
+.showModal {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #808080a2;
+  opacity: 1;
+  overflow: hidden;
+}
+
+#modal {
+  width: 50%;
+  height: 50%;
+  background-color: white;
+  border: 3px solid red;
+}
+
+#closeBtn {
+  position: relative;
+  left: 80%;
+  top: 0;
+}
+
+/******** modal창 구현 **********/
+
 /********************************************************* containerItem2 */
 
 /********************************************************* signupForm */
