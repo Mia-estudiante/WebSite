@@ -1,4 +1,4 @@
-"use restrict";
+"use strict";
 
 const signInBtn = document.querySelector("#signin");
 signInBtn.addEventListener("click", () => {

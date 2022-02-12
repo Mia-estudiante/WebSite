@@ -7,24 +7,38 @@
     <title>Document</title>
     
     <!-- CSS -->
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="signin.css">
     
     <!-- JS -->
-    <script src="index.js" defer></script>
+    <script src="signin.js" defer></script>
+
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <img class="biglogo" src="img/popcorn.png" alt="sitelogo"> 
+    <header class="signinHeader">
+        <a href="index.html"><img class="smalllogo" src="img/popcorn.png" alt="sitelogo"> </a>
+        <button id="signup">회원가입</button>
     </header>
-    <form action="server...." method="post" class="signin">
-        <div>
-            <label for="mail">E-mail: </label>
-            <input type="email" placeholder="이메일 주소" required>
+    <section class="container">
+        <div class="signinForm">
+            <p id="signinTitle">로그인</p>
+            <article class="containerItem1">
+                <div class="emailContainer1">
+                    <label for="email">이메일</label>
+                    <input type="email" id="email" placeholder="이메일 주소를 입력해주세요." required>
+                </div>
+                <div class="emailContainer2">
+                    <label for="pw">비밀번호</label>
+                    <input type="password" id="pw" placeholder= "비밀번호를 입력해주세요." required>
+                </div>
+                <div class="item6">
+                    <button id="signinBtn">로그인</button>  
+                </div>
+            </article>
         </div>
-        <div>
-            <label for="pw">Password: </label>
-            <input type="password" placeholder="비밀번호" required>
-        </div>
-    </form>
+    </section>
 </body>
 </html>
