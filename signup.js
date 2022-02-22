@@ -115,12 +115,12 @@ emailCheckBtn.addEventListener("click", () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        data: emailInput1.value,
+        id: emailInput1.value,
       }),
     })
       .then((res) => res.json())
-      .then((data) => {
-        isEmailValid = data.result;
+      .then((json) => {
+        isEmailValid = json.result;
         if (isEmailValid) {
           if (document.querySelector("#alert1")) {
             removeAlert(emailInput1, "#alert1");
@@ -224,7 +224,7 @@ signupBtn.addEventListener("click", () => {
     if (document.querySelector("#alert4")) {
       document.querySelector("#alert4").remove();
     }
-    pwdoubleInput.style.border = ok;
+    pwdoubleInput.style.border = okStyle;
   } else {
     doubleCheck = false;
     if (!document.querySelector("#alert4")) {
@@ -265,9 +265,6 @@ signupBtn.addEventListener("click", () => {
   }
 
   if (ispwValid && doubleCheck && nameCheck && birthCheck) {
-    //가입완료 modal
-    modal.classList.add("showModal");
-
     //////////////////////////////////////////////////////////////////////////////이때 정보 저장
 
     const obj = {
@@ -282,13 +279,14 @@ signupBtn.addEventListener("click", () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        data: obj,
-      }),
+      body: JSON.stringify(obj),
     })
       .then((res) => res.json())
       .then((json) => {
-        console.log(json);
+        if (json.result) {
+          //가입완료 modal
+          modal.classList.add("showModal");
+        }
       });
 
     //     mysql
