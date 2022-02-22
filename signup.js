@@ -20,8 +20,12 @@ const emailBtn = document.querySelector("#nextBtn");
 
 const email = document.querySelector("#emailComp");
 
+const okStyle = "3px solid #9cff57";
+const noStyle = "3px solid #e91e63";
+
 let isEmail = false; //이메일을 입력했는가
 let isEmailValid = false; //이메일 인증했는가
+let isEmailinDB = false; //DB에 존재하는 이메일인가
 
 const emailRule =
   /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -47,25 +51,31 @@ function createAlert(parent, input, id, opt) {
       break;
     case 5:
       text = "비밀번호가 일치하지 않습니다.";
+      break;
+    case 6:
+      text = "이미 존재하는 이메일입니다.";
+      break;
+    default:
+      console.log("default");
   }
   span.innerText = text;
   parent.append(span);
-  input.style.border = "3px solid #e91e63";
+  input.style.border = noStyle;
 }
 
 function removeAlert(input, id) {
   document.querySelector(id).remove();
-  input.style.border = "3px solid #9cff57";
+  input.style.border = okStyle;
 }
 
 emailBtn.addEventListener("click", () => {
   //1) 이메일 형식 확인
-  if (emailRule.test(emailInput1.value)) {
+  if (emailRule.test(emailInput1.value) && isEmailValid) {
     isEmail = true;
     if (document.querySelector("#alert1")) {
       removeAlert(emailInput1, "#alert1");
     }
-    emailInput1.style.border = "3px solid #9cff57";
+    emailInput1.style.border = okStyle;
   } else {
     isEmail = false;
     if (!document.querySelector("#alert1")) {
@@ -83,7 +93,6 @@ emailBtn.addEventListener("click", () => {
     }
   }
 
-  console.log("asdfasdf");
   //3) 이메일 형식 및 인증 완료
   if (isEmail && isEmailValid) {
     article1.style.display = "none";
@@ -91,7 +100,7 @@ emailBtn.addEventListener("click", () => {
     console.log("다음으로 이동");
 
     email.value = emailInput1.value;
-    email.style.border = "3px solid #9cff57";
+    email.style.border = okStyle;
   } else {
     console.log("이동 못해");
   }
@@ -100,19 +109,36 @@ emailBtn.addEventListener("click", () => {
 emailCheckBtn.addEventListener("click", () => {
   if (emailRule.test(emailInput1.value)) {
     isEmail = true;
-    isEmailValid = true;
-    if (document.querySelector("#alert1")) {
-      removeAlert(emailInput1, "#alert1");
-    }
-    if (document.querySelector("#alert2")) {
-      removeAlert(emailInput2, "#alert2");
-    }
-    emailInput1.style.border = "3px solid #9cff57";
-    emailInput2.style.border = "3px solid #9cff57";
-
-    alert("인증번호 전송");
-
-    /////////////////////////////////////////////////////타이머 시작
+    fetch("http://localhost:8080/emailCheck", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        data: emailInput1.value,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        isEmailValid = data.result;
+        if (isEmailValid) {
+          if (document.querySelector("#alert1")) {
+            removeAlert(emailInput1, "#alert1");
+          }
+          if (document.querySelector("#alert2")) {
+            removeAlert(emailInput2, "#alert2");
+          }
+          emailInput1.style.border = okStyle;
+          emailInput2.style.border = okStyle;
+          ///////////////////////////////////////////////인증번호 구현
+          /////////////////////////////////////////////////////타이머 시작
+          alert("인증번호 전송");
+        } else {
+          if (!document.querySelector("#alert1")) {
+            createAlert(alertParent1, emailInput1, "alert1", 6);
+          }
+        }
+      });
   } else {
     isEmail = false;
     if (!document.querySelector("#alert2")) {
@@ -184,7 +210,7 @@ signupBtn.addEventListener("click", () => {
     if (document.querySelector("#alert3")) {
       document.querySelector("#alert3").remove();
     }
-    pwInput.style.border = "3px solid #9cff57";
+    pwInput.style.border = okStyle;
   } else {
     ispwValid = false;
     if (!document.querySelector("#alert3")) {
@@ -198,7 +224,7 @@ signupBtn.addEventListener("click", () => {
     if (document.querySelector("#alert4")) {
       document.querySelector("#alert4").remove();
     }
-    pwdoubleInput.style.border = "3px solid #9cff57";
+    pwdoubleInput.style.border = ok;
   } else {
     doubleCheck = false;
     if (!document.querySelector("#alert4")) {
@@ -209,33 +235,33 @@ signupBtn.addEventListener("click", () => {
   //3) 이름
   if (!nameInput.value) {
     nameCheck = false;
-    nameInput.style.border = "3px solid #e91e63";
+    nameInput.style.border = noStyle;
   } else {
     nameCheck = true;
-    nameInput.style.border = "3px solid #9cff57";
+    nameInput.style.border = okStyle;
   }
 
   //4) 생년월일
   if (year.value === "none") {
     birthCheck = false;
-    year.style.border = "3px solid #e91e63";
+    year.style.border = noStyle;
   } else {
     birthCheck = true;
-    year.style.border = "3px solid #9cff57";
+    year.style.border = okStyle;
   }
   if (month.value === "none") {
     birthCheck = false;
-    month.style.border = "3px solid #e91e63";
+    month.style.border = noStyle;
   } else {
     birthCheck = true;
-    month.style.border = "3px solid #9cff57";
+    month.style.border = okStyle;
   }
   if (date.value === "none") {
     birthCheck = false;
-    date.style.border = "3px solid #e91e63";
+    date.style.border = noStyle;
   } else {
     birthCheck = true;
-    date.style.border = "3px solid #9cff57";
+    date.style.border = okStyle;
   }
 
   if (ispwValid && doubleCheck && nameCheck && birthCheck) {
@@ -259,7 +285,11 @@ signupBtn.addEventListener("click", () => {
       body: JSON.stringify({
         data: obj,
       }),
-    });
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+      });
 
     //     mysql
     // email 		        pw		            name   year    month	 date
