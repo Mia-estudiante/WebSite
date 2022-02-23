@@ -273,7 +273,7 @@ signupBtn.addEventListener("click", () => {
       name: nameInput.value,
       birth: `${year.value}-${month.value}-${date.value}`,
     };
-
+    // console.log(obj);
     fetch("http://localhost:8080/signup", {
       method: "POST",
       headers: {

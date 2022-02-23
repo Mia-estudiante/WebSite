@@ -27,5 +27,25 @@ signInBtn.addEventListener("click", () => {
   }
 
   if (input1.value && input2.value) {
+    const obj = {
+      id: input1.value,
+      pw: input2.value,
+    };
+
+    fetch("http://localhost:8080/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(obj),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.result) {
+          alert("로그인 성공!");
+        } else {
+          alert("로그인 실패!");
+        }
+      });
   }
 });
