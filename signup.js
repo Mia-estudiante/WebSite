@@ -30,6 +30,30 @@ let isEmailinDB = false; //DB에 존재하는 이메일인가
 const emailRule =
   /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+const minute = document.querySelector("#min");
+const second = document.querySelector("#sec");
+function timerStart() {
+  let sec = 0;
+  let min = 3;
+  timeInterval = setInterval(() => {
+    if (sec != 0) {
+      sec--;
+    } else {
+      min--;
+      if (min >= 0) {
+        sec = 59;
+      }
+    }
+    if (sec == 0 && min == 0) {
+      clearInterval(timeInterval);
+      minute.innerText = 3;
+    } else {
+      minute.innerText = min;
+    }
+    sec == 0 ? (second.innerText = "00") : (second.innerText = sec);
+  }, 1000);
+}
+
 function createAlert(parent, input, id, opt) {
   const span = document.createElement("span");
   span.setAttribute("id", id);
@@ -132,7 +156,7 @@ emailCheckBtn.addEventListener("click", () => {
           emailInput2.style.border = okStyle;
           ///////////////////////////////////////////////인증번호 구현
           /////////////////////////////////////////////////////타이머 시작
-          alert("인증번호 전송");
+          timerStart();
         } else {
           if (!document.querySelector("#alert1")) {
             createAlert(alertParent1, emailInput1, "alert1", 6);
@@ -288,12 +312,6 @@ signupBtn.addEventListener("click", () => {
           modal.classList.add("showModal");
         }
       });
-
-    //     mysql
-    // email 		        pw		            name   year    month	 date
-    // 이메일 주소 / 비밀번호(by 암호화) / 이름 / 년도 /  월 /  일
-
-    //////////////////////////////////////////////////////////////////////////////이때 정보 저장
 
     // window.location.href = "index.html";   //가입 완료 후, 메인 페이지로 이동
   }
