@@ -16,6 +16,7 @@ const emailInput1 = document.querySelector("#email");
 const emailInput2 = document.querySelector("#emailVerifi");
 
 const emailCheckBtn = document.querySelector("#emailCheck");
+const emailAuthBtn = document.querySelector("#emailAuth");
 const emailBtn = document.querySelector("#nextBtn");
 
 const email = document.querySelector("#emailComp");
@@ -24,18 +25,33 @@ const okStyle = "3px solid #9cff57";
 const noStyle = "3px solid #e91e63";
 
 let isEmail = false; //이메일을 입력했는가
+let isEmailinDB = false; //중복확인 여부
 let isEmailValid = false; //이메일 인증했는가
-let isEmailinDB = false; //DB에 존재하는 이메일인가
 
 const emailRule =
   /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const minute = document.querySelector("#min");
 const second = document.querySelector("#sec");
+// let timeInterval = 0;
+
+function timerPrint(sec, min) {
+  // if (!(sec == 0 && min == 0)) {
+  minute.innerText = min;
+  // }
+  sec == 0 ? (second.innerText = "00") : (second.innerText = sec);
+  console.log("초 프린트");
+}
+
 function timerStart() {
   let sec = 0;
   let min = 3;
-  timeInterval = setInterval(() => {
+
+  setTimeout(function repeat() {
+    if (sec == 0 && min == 0) {
+      clearInterval(timeInterval);
+      minute.innerText = 3;
+    }
     if (sec != 0) {
       sec--;
     } else {
@@ -44,13 +60,10 @@ function timerStart() {
         sec = 59;
       }
     }
-    if (sec == 0 && min == 0) {
-      clearInterval(timeInterval);
-      minute.innerText = 3;
-    } else {
-      minute.innerText = min;
+    timerPrint(sec, min);
+    if (min > 0 && sec > 0) {
+      setTimeout(repeat, 1000);
     }
-    sec == 0 ? (second.innerText = "00") : (second.innerText = sec);
   }, 1000);
 }
 
@@ -79,6 +92,9 @@ function createAlert(parent, input, id, opt) {
     case 6:
       text = "이미 존재하는 이메일입니다.";
       break;
+    case 7:
+      text = "이메일 중복 확인을 먼저 수행해주세요.";
+      break;
     default:
       console.log("default");
   }
@@ -92,6 +108,9 @@ function removeAlert(input, id) {
   input.style.border = okStyle;
 }
 
+/**
+ * 다음 버튼 클릭
+ */
 emailBtn.addEventListener("click", () => {
   //1) 이메일 형식 확인
   if (emailRule.test(emailInput1.value) && isEmailValid) {
@@ -130,48 +149,104 @@ emailBtn.addEventListener("click", () => {
   }
 });
 
+/**
+ * 중복 확인 버튼 클릭
+ */
 emailCheckBtn.addEventListener("click", () => {
-  if (emailRule.test(emailInput1.value)) {
-    isEmail = true;
-    fetch("http://localhost:8080/emailCheck", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: emailInput1.value,
-      }),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        isEmailValid = json.result;
-        if (isEmailValid) {
-          if (document.querySelector("#alert1")) {
-            removeAlert(emailInput1, "#alert1");
+  console.log("중복확인");
+  emailInput1.value ? (isEmail = true) : (isEmail = false);
+
+  if (isEmail) {
+    if (emailRule.test(emailInput1.value)) {
+      fetch("http://localhost:8080/emailCheck", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: emailInput1.value,
+        }),
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          isEmailinDB = json.result;
+          console.log(isEmailinDB);
+          if (isEmailinDB) {
+            if (document.querySelector("#alert1")) {
+              removeAlert(emailInput1, "#alert1");
+            }
+            // if (document.querySelector("#alert2")) {
+            //   removeAlert(emailInput2, "#alert2");
+            // }
+            emailInput1.style.border = okStyle;
+            // emailInput2.style.border = okStyle;
+          } else {
+            if (!document.querySelector("#alert1")) {
+              createAlert(alertParent1, emailInput1, "alert1", 6);
+            } else {
+              // emailInput1.style.border = noStyle;
+              document.querySelector("#alert1").innerText =
+                "이미 존재하는 이메일입니다.";
+            }
           }
-          if (document.querySelector("#alert2")) {
-            removeAlert(emailInput2, "#alert2");
-          }
-          emailInput1.style.border = okStyle;
-          emailInput2.style.border = okStyle;
-          ///////////////////////////////////////////////인증번호 구현
-          /////////////////////////////////////////////////////타이머 시작
-          timerStart();
-        } else {
-          if (!document.querySelector("#alert1")) {
-            createAlert(alertParent1, emailInput1, "alert1", 6);
-          }
-        }
-      });
-  } else {
-    isEmail = false;
-    if (!document.querySelector("#alert2")) {
-      createAlert(alertParent2, emailInput2, "alert2", 3);
+        });
     } else {
-      document.querySelector("#alert2").innerText =
+      isEmail = false;
+      if (!document.querySelector("#alert1")) {
+        createAlert(alertParent1, emailInput1, "alert1", 1);
+      } else {
+        document.querySelector("#alert1").innerText =
+          "잘못된 형식의 이메일 주소입니다. 정확한 이메일 주소를 입력해 주세요.";
+      }
+    }
+  } else {
+    if (!document.querySelector("#alert1")) {
+      createAlert(alertParent1, emailInput1, "alert1", 3);
+    } else {
+      document.querySelector("#alert1").innerText =
         "인증번호를 전송할 이메일 주소를 입력해 주세요.";
     }
   }
+});
+
+emailAuthBtn.addEventListener("click", () => {
+  if (isEmail && isEmailinDB) {
+    timerStart();
+  } else {
+    if (!document.querySelector("#alert1")) {
+      createAlert(alertParent1, emailInput1, "alert1", 7);
+    } else {
+      document.querySelector("#alert1").innerText =
+        "이메일 중복 확인을 먼저 수행해주세요.";
+    }
+  }
+  //       if (isEmailValid) {
+  //         if (document.querySelector("#alert1")) {
+  //           removeAlert(emailInput1, "#alert1");
+  //         }
+  //         if (document.querySelector("#alert2")) {
+  //           removeAlert(emailInput2, "#alert2");
+  //         }
+  //         emailInput1.style.border = okStyle;
+  //         emailInput2.style.border = okStyle;
+  //         ///////////////////////////////////////////////인증번호 구현
+  //         /////////////////////////////////////////////////////타이머 시작
+  //         timerStart();
+  //       } else {
+  //         if (!document.querySelector("#alert1")) {
+  //           createAlert(alertParent1, emailInput1, "alert1", 6);
+  //         }
+  //       }
+  //     });
+  // } else {
+  //   isEmail = false;
+  //   if (!document.querySelector("#alert2")) {
+  //     createAlert(alertParent2, emailInput2, "alert2", 3);
+  //   } else {
+  //     document.querySelector("#alert2").innerText =
+  //       "인증번호를 전송할 이메일 주소를 입력해 주세요.";
+  //   }
+  // }
 });
 
 //////////////////////////////////////////////////////////////////////////////다음 페이지

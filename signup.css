@@ -113,14 +113,20 @@ body {
   font-weight: bold;
 }
 
-.verifi {
+.verifi1,
+.verifi2 {
   display: flex;
   flex-direction: row;
 }
 
+#email {
+  flex-grow: 3;
+}
+
+#emailCheck,
 #validTime,
 #emailVerifi,
-#emailCheck {
+#emailAuth {
   flex-grow: 1;
 }
 

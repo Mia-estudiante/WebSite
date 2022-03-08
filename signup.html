@@ -31,17 +31,18 @@
             <article class="containerItem1">
                 <div class="emailContainer1">
                     <label for="email">이메일</label>
-                    <input type="email" id="email" placeholder="이메일 주소를 입력해주세요." required>
+                    <div class="verifi1">
+                        <input type="email" id="email" placeholder="이메일 주소를 입력해주세요." required>
+                        <button id="emailCheck">중복확인</button>
+                    </div>
                 </div>
                 <div class="emailContainer2">
                     <label for="emailVerifi">이메일 인증</label>
-                    <div class="verifi">
-                        <span id="min">3</span>분<span id="sec">00</span>초
+                    <div class="verifi2">
+                        <div id="validTime"><span id="min">3</span>분<span id="sec">00</span>초</div>
                         <input type="text" id="emailVerifi" placeholder="인증번호를 입력해주세요." required>
-                        <button id="emailCheck">인증요청</button>
+                        <button id="emailAuth">인증요청</button>
                     </div>
-                    <!-- <span class="alert">잘못된 인증번호입니다. 인증번호 재발급 시 인증요청 버튼을 눌러주세요.</span> -->
-                    <!-- <span class="alert">인증번호 재발급 시 인증요청 버튼을 눌러주세요.</span> -->
                 </div>
                 <div class="item6">
                     <button id="nextBtn">다음으로</button>  
