@@ -163,7 +163,8 @@ select {
 }
 
 /******** modal창 구현 **********/
-.modalContainer {
+.modalContainer1,
+.modalContainer2 {
   display: none;
 }
 
@@ -181,14 +182,16 @@ select {
   overflow: hidden;
 }
 
-#modal {
+#modal1,
+#modal2 {
   width: 50%;
   height: 50%;
   background-color: white;
   border: 3px solid red;
 }
 
-#closeBtn {
+#closeBtn1,
+#closeBtn2 {
   position: relative;
   left: 80%;
   top: 0;

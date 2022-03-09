@@ -27,6 +27,14 @@ const noStyle = "3px solid #e91e63";
 let isEmail = false; //이메일을 입력했는가
 let isEmailinDB = false; //중복확인 여부
 let isEmailValid = false; //이메일 인증했는가
+let activeTimer = 0; //인증요청을 클릭했는가
+
+//모달창 닫기 버튼
+const modal1 = document.querySelector(".modalContainer1");
+const closeBtn1 = document.querySelector("#closeBtn1");
+closeBtn1.addEventListener("click", () => {
+  modal1.classList.remove("showModal");
+});
 
 const emailRule =
   /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -49,8 +57,9 @@ function timerStart() {
 
   setTimeout(function repeat() {
     if (sec == 0 && min == 0) {
+      activeTimer = 0;
+      timerPrint(0, 3);
       clearInterval(timeInterval);
-      minute.innerText = 3;
     }
     if (sec != 0) {
       sec--;
@@ -61,7 +70,7 @@ function timerStart() {
       }
     }
     timerPrint(sec, min);
-    if (min > 0 && sec > 0) {
+    if (min >= 0 && sec >= 0) {
       setTimeout(repeat, 1000);
     }
   }, 1000);
@@ -211,7 +220,7 @@ emailCheckBtn.addEventListener("click", () => {
 
 emailAuthBtn.addEventListener("click", () => {
   if (isEmail && isEmailinDB) {
-    timerStart();
+    ++activeTimer == 1 ? timerStart() : modal1.classList.add("showModal");
   } else {
     if (!document.querySelector("#alert1")) {
       createAlert(alertParent1, emailInput1, "alert1", 7);
@@ -274,10 +283,10 @@ for (let i = 1; i <= 31; i++) {
 }
 
 //모달창 닫기 버튼
-const modal = document.querySelector(".modalContainer");
-const closeBtn = document.querySelector("#closeBtn");
-closeBtn.addEventListener("click", () => {
-  modal.classList.remove("showModal");
+const modal2 = document.querySelector(".modalContainer2");
+const closeBtn2 = document.querySelector("#closeBtn2");
+closeBtn2.addEventListener("click", () => {
+  modal2.classList.remove("showModal");
 });
 
 //영문 숫자 특수문자 혼합해서 8자리~16자리
@@ -384,7 +393,7 @@ signupBtn.addEventListener("click", () => {
       .then((json) => {
         if (json.result) {
           //가입완료 modal
-          modal.classList.add("showModal");
+          modal2.classList.add("showModal");
         }
       });
 
