@@ -1,0 +1,132 @@
+:root {
+  /* color */
+  --color-logo: #e91e63;
+  --color-bg: #12005e;
+  --color-font: #f0f4f5;
+
+  /* size */
+  --size-logo: 7em;
+  --size-font: 1em;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url("img/theater.jpg");
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  color: var(--color-font);
+  font-family: "Gowun Dodum", sans-serif;
+}
+
+.mainPage {
+  margin: 0 auto;
+  width: 96%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+header,
+footer {
+  flex-grow: 1;
+}
+
+main {
+  flex-grow: 50;
+}
+
+/* Header */
+header {
+  padding-top: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.biglogo {
+  width: var(--size-logo);
+  height: var(--size-logo);
+}
+
+header .btns button {
+  margin-right: 1em;
+  transition: transform 300ms ease;
+}
+
+#mypage,
+#logout {
+  background-color: transparent;
+  padding: 1em;
+  font-size: var(--size-font);
+  border: 2px solid red;
+  border-radius: 10%;
+  color: var(--color-font);
+}
+
+#mypage:hover,
+#logout:hover {
+  cursor: pointer;
+  background-color: red;
+  transform: scale(1.1);
+}
+
+/* main */
+main {
+  display: flex;
+  flex-direction: row;
+}
+
+.left {
+  flex-grow: 1;
+}
+
+.right {
+  flex-grow: 3;
+}
+
+/* main - aside */
+.container {
+  border: 2px solid white;
+  width: 94%;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#image {
+  width: 100%;
+  flex-grow: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#name {
+  width: 100%;
+  border: 1px solid white;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.recommend {
+  flex-grow: 2;
+}
+
+/* footer */
+footer {
+  text-align: center;
+}
