@@ -52,6 +52,22 @@ function timerPrint(sec, min) {
 }
 
 function timerStart() {
+  /////////인증번호 전송
+  fetch("http://localhost:8080/verificode", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: emailInput1.value,
+    }),
+  })
+    .then((res) => res.json())
+    .then((json) => {
+      console.log(json);
+    });
+
+  emailAuthBtn.innerText = "인증확인";
   let sec = 0;
   let min = 3;
 
@@ -59,6 +75,7 @@ function timerStart() {
     if (sec == 0 && min == 0) {
       activeTimer = 0;
       timerPrint(0, 3);
+      emailAuthBtn.innerText = "인증요청";
       clearInterval(timeInterval);
     }
     if (sec != 0) {
@@ -104,6 +121,9 @@ function createAlert(parent, input, id, opt) {
     case 7:
       text = "이메일 중복 확인을 먼저 수행해주세요.";
       break;
+    case 8:
+      text = "인증번호를 다시 입력해 주세요.";
+      break;
     default:
       console.log("default");
   }
@@ -121,13 +141,22 @@ function removeAlert(input, id) {
  * 다음 버튼 클릭
  */
 emailBtn.addEventListener("click", () => {
-  //1) 이메일 형식 확인
-  if (emailRule.test(emailInput1.value) && isEmailValid) {
+  //1) 이메일 형식 및 중복 확인
+  if (emailRule.test(emailInput1.value)) {
     isEmail = true;
-    if (document.querySelector("#alert1")) {
-      removeAlert(emailInput1, "#alert1");
+    if (!isEmailinDB) {
+      if (!document.querySelector("#alert1")) {
+        createAlert(alertParent1, emailInput1, "alert1", 7);
+      } else {
+        document.querySelector("#alert1").innerText =
+          "이메일 중복 확인을 먼저 수행해주세요.";
+      }
+    } else {
+      if (document.querySelector("#alert1")) {
+        removeAlert(emailInput1, "#alert1");
+      }
+      emailInput1.style.border = okStyle;
     }
-    emailInput1.style.border = okStyle;
   } else {
     isEmail = false;
     if (!document.querySelector("#alert1")) {
@@ -145,8 +174,8 @@ emailBtn.addEventListener("click", () => {
     }
   }
 
-  //3) 이메일 형식 및 인증 완료
-  if (isEmail && isEmailValid) {
+  //3) 이메일 형식 / 중복 / 인증 완료
+  if (isEmail && isEmailinDB && isEmailValid) {
     article1.style.display = "none";
     article2.style.display = "";
     console.log("다음으로 이동");
@@ -156,6 +185,10 @@ emailBtn.addEventListener("click", () => {
   } else {
     console.log("이동 못해");
   }
+
+  console.log("이메일 입력 : " + isEmail);
+  console.log("중복확인 : " + isEmailinDB);
+  console.log("인증요청 : " + isEmailValid);
 });
 
 /**
@@ -218,9 +251,45 @@ emailCheckBtn.addEventListener("click", () => {
   }
 });
 
+function checkVerifiCode() {
+  console.log(emailInput2.value);
+  fetch("http://localhost:8080/checkVerifiCode", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: emailInput1.value,
+      code: emailInput2.value,
+    }),
+  })
+    .then((res) => res.json())
+    .then((json) => {
+      console.log("이메일 인증을 완료 : " + json.result);
+      isEmailValid = json.result;
+
+      if (isEmailValid) {
+        if (document.querySelector("#alert2")) {
+          removeAlert(emailInput2, "#alert2");
+        }
+        emailInput2.style.border = okStyle;
+      } else {
+        if (!document.querySelector("#alert2")) {
+          createAlert(alertParent2, emailInput2, "alert2", 8);
+        } else {
+          document.querySelector("#alert2").innerText =
+            "인증번호를 다시 입력해 주세요.";
+        }
+      }
+    });
+}
+
+/**
+ * 인증 요청 버튼 클릭
+ */
 emailAuthBtn.addEventListener("click", () => {
   if (isEmail && isEmailinDB) {
-    ++activeTimer == 1 ? timerStart() : modal1.classList.add("showModal");
+    ++activeTimer == 1 ? timerStart() : checkVerifiCode();
   } else {
     if (!document.querySelector("#alert1")) {
       createAlert(alertParent1, emailInput1, "alert1", 7);
