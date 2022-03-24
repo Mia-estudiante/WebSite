@@ -42,7 +42,7 @@ signInBtn.addEventListener("click", () => {
       .then((res) => res.json())
       .then((json) => {
         if (json.result) {
-          alert("로그인 성공!");
+          window.location.href = "main.html";
         } else {
           alert("로그인 실패!");
         }
