@@ -9,6 +9,9 @@
     <!-- CSS -->
     <link rel="stylesheet" href="main.css">
 
+    <!-- JS -->
+    <script src="main.js" defer></script>
+
     <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,19 +33,69 @@
             <aside class="left">
                 <section class="container">
                     <article class="profile">
-                        <div id="image">IMAGE</div>
+                        <div id="image"><img class="biglogo2" src="img/profile.jpg" alt="profile"></div>
                         <div id="name">NAME</div>
                     </article>
                     <article class="recommend">
-                        <div id="feelings"></div>
-                        <div id="weather"></div>
-                        <div id="season"></div>
+                        <div class="box" id="feelings">
+                            <p>현재 나의 '기분'에 따른 영화 추천받기</p>
+                            <select name="" id="">
+                                <option value="happy">행복함</option>
+                                <option value="sad">슬픔</option>
+                                <option value="angry" selected="selected">화남</option>
+                            </select>
+                            <button id="result">click</button>          <!-- 클릭시 모달창 -->      
+                        </div>
+                        <div class="box" id="weather">
+                            <p>현재 '날씨'에 따른 영화 추천받기</p>
+                            <button id="result">click</button>          <!-- 클릭시 모달창 -->
+                        </div>
+                        <div class="box" id="season">
+                            <p>현재 '계절'에 따른 영화 추천받기</p>
+                            <button id="result">click</button>          <!-- 클릭시 모달창 -->
+                        </div>
                     </article>
                 </section>
             </aside>
             <section class="right">
-                <article class="search"></article>
-                <article class="screen"></article>
+                <article class="search">
+                    <div class="filters">
+                        <button id="filter">필터</button>
+                        <button id="direct">직접 검색</button>
+                    </div>
+                    <div class="change1 show">
+                        <input type="text" id="searchText" placeholder="검색할 영화 제목을 입력해주세요." required>
+                        <button id="click1">click</button>
+                    </div>
+                    <div class="change2 noshow">
+                        <div>장르</div>
+                        <select name="genre" id="genre">
+                            <option value="no">선택 안함</option>
+                            <option value="action">액션</option>
+                            <option value="comedy">코미디</option>
+                            <option value="romance">로맨스</option>
+                            <option value="drama">드라마</option>
+                            <option value="fantasy">판타지</option>
+                            <option value="horror">공포</option>
+                            <option value="mystery">미스터리</option>
+                            <option value="western">서부</option>
+                            <option value="thriller">스릴러</option>
+                        </select>
+                        <div>시대별</div>
+                        <select name="period" id="period">
+                            <option value="no">선택 안함</option>
+                            <option value="1970">1970년대</option>
+                            <option value="1980">1980년대</option>
+                            <option value="1990">1990년대</option>
+                            <option value="2000">2000년대</option>
+                            <option value="2010">2010년대</option>
+                            <option value="2020">2020년대</option>
+                        </select>
+                        <button id="click2">click</button>
+                    </div>
+                </article>
+                <article class="screen">
+                </article>
             </section>
         </main>
         <footer class="copyright">

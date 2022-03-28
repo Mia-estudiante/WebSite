@@ -31,7 +31,7 @@ searchBtn.addEventListener("click", () => {
 //////////////////////////////////////////////////////////
 
 const searchClickBtn = document.querySelector("#click1");
-let imgContainer = document.querySelector(".screen .row");
+let imgContainer = document.querySelector(".screen");
 searchClickBtn.addEventListener("click", () => {
   const word = document.querySelector("#searchText").value;
   fetch("http://localhost:8080/search", {
@@ -43,10 +43,14 @@ searchClickBtn.addEventListener("click", () => {
   })
     .then((res) => res.json())
     .then((json) => {
+      imgContainer.innerHTML = "";
       const images = json.images;
       console.log(images);
       // imgContainer.innerHTML = "";
       for (let i = 0; i < images.length; i++) {
+        if (images[i] === null) {
+          continue;
+        }
         const new_pTag1 = document.createElement("div");
         new_pTag1.setAttribute("class", "movie1");
         const new_pTag2 = document.createElement("img");
