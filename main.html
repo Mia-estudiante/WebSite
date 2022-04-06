@@ -1,107 +1,190 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="main.css">
-
-    <!-- JS -->
-    <script src="main.js" defer></script>
-
-    <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
-
-    <!-- Favicon error -->
-    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <link rel="stylesheet" href="main.css">
+    <script src="main.js" defer></script>
 </head>
 <body>
-    <div class="mainPage">
-        <header>
-            <img class="biglogo" src="img/popcorn.png" alt="sitelogo">
-            <div class="btns">
-                <button id="mypage">마이페이지</button> <!-- 마이페이지로 이동 -->
-                <button id="logout">로그아웃</button> <!-- 메인 페이지로 이동 -->
-            </div>
-        </header>
+    <header class="main-header">
+        <h1 class="logo">
+            <a href="index.html">
+                <img src="./img/popcorn.png" alt="website-logo">
+            </a>
+        </h1>
+        <nav>
+            <h1 class="sr-only">Navigation Menu</h1>
+            <ul>
+                <li id="mypage">
+                    <a href="">마이페이지</a>
+                </li>
+                <li id="logout">
+                    <a href="">로그아웃</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="main-content">
+        <aside class="profile">
+            <header>
+                <h1 aria-label="user-img"></h1>
+                <h2 aria-label="user-name">user-name</h2>
+            </header>
+            <ul>
+                <li class="recommend">
+                    <strong>현재 나의 <span>기분</span>에 따른 영화 추천받기</strong>
+                    <div>
+                        <select name="" id="">
+                            <option value="smile">😊</option>
+                            <option value="angry">😡</option>
+                            <option value="sad">😭</option>
+                        </select>
+                        <button>클릭!</button>
+                    </div>
+                    <!-- modal -->
+                </li>
+                <li class="recommend">
+                    <strong>현재 <span>날씨</span>에 따른 영화 추천받기</strong>
+                    <div>
+                        <!-- <select name="" id="">
+                            <option value=""></option>
+                        </select> -->
+                        <button>클릭!</button> <!--현재 날씨 받아오기-->
+                    </div>
+                    <!-- modal -->
+                </li>
+                <li class="recommend">
+                    <strong>현재 <span>계절</span>에 따른 영화 추천받기</strong>
+                    <div>
+                        <!-- <select name="" id="">
+                            <option value=""></option>
+                        </select> -->
+                        <button>클릭!</button> <!--현재 계절 받아오기-->
+                    </div>
+                    <!-- modal -->
+                </li>
+            </ul>
+        </aside>
         <main>
-            <aside class="left">
-                <section class="container">
-                    <article class="profile">
-                        <div id="image"><img class="biglogo2" src="img/profile.jpg" alt="profile"></div>
-                        <div id="name">NAME</div>
-                    </article>
-                    <article class="recommend">
-                        <div class="box" id="feelings">
-                            <p>현재 나의 '기분'에 따른 영화 추천받기</p>
-                            <select name="" id="">
-                                <option value="happy">행복함</option>
-                                <option value="sad">슬픔</option>
-                                <option value="angry" selected="selected">화남</option>
-                            </select>
-                            <button id="result">click</button>          <!-- 클릭시 모달창 -->      
+            <header>
+                <h1 aria-label="change search functions" class="sr-only">search and filters</h1>
+                <ul>
+                    <li>
+                        <button type="button" id="direct-search" class="tooltip">
+                            <img src="./img/search.png" alt="direct-search-icon">
+                            <span class="tooltiptext tooltip-left">📌영화 제목을 직접 검색하고자 하면 눌러주세요!</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" id="filter-search" class="tooltip">
+                            <img src="./img/filter.png" alt="filter-search-icon">
+                            <span class="tooltiptext tooltip-right">📌장르, 개봉연도, 국적에 기반해 영화를 검색하고자 하면 눌러주세요!</span>
+                        </button>
+                    </li>
+                </ul>
+                <h2 aria-label="functions" class="func-direct-search show">
+                    <input type="text" placeholder="검색할 영화의 제목을 입력해주세요.">
+                    <button id="direct-search-btn">
+                        <img src="./img/search_icon.png" alt="direct-search-icon" class="search-icon">
+                    </button>
+                </h2>
+                <h2 aria-label="functions" class="func-filter-search noshow">
+                    <dl>
+                        <div>
+                            <dt>장르</dt>
+                            <dd>
+                                <select name="genre" id="genre">
+                                    <option value="no">선택 안함</option>
+                                    <option value="action">액션</option>
+                                    <option value="comedy">코미디</option>
+                                    <option value="romance">로맨스</option>
+                                    <option value="drama">드라마</option>
+                                    <option value="fantasy">판타지</option>
+                                    <option value="horror">공포</option>
+                                    <option value="mystery">미스터리</option>
+                                    <option value="western">서부</option>
+                                    <option value="thriller">스릴러</option>
+                                </select>
+                            </dd>
                         </div>
-                        <div class="box" id="weather">
-                            <p>현재 '날씨'에 따른 영화 추천받기</p>
-                            <button id="result">click</button>          <!-- 클릭시 모달창 -->
+                        <div>
+                            <dt>개봉연도</dt>
+                            <dd>
+                                <select name="period" id="period">
+                                    <option value="no">선택 안함</option>
+                                    <option value="1970">1970년대</option>
+                                    <option value="1980">1980년대</option>
+                                    <option value="1990">1990년대</option>
+                                    <option value="2000">2000년대</option>
+                                    <option value="2010">2010년대</option>
+                                    <option value="2020">2020년대</option>
+                                </select>
+                            </dd>
                         </div>
-                        <div class="box" id="season">
-                            <p>현재 '계절'에 따른 영화 추천받기</p>
-                            <button id="result">click</button>          <!-- 클릭시 모달창 -->
+                        <div>
+                            <dt>국가</dt>
+                            <dd>
+                                <select name="country" id="country">
+                                    <option value="no">선택 안함</option>
+                                    <option value="us">미국</option>
+                                    <option value="ko">한국</option>
+                                    <option value="ch">중국</option>
+                                    <option value="jp">일본</option>
+                                </select>
+                            </dd>
                         </div>
-                    </article>
-                </section>
-            </aside>
-            <section class="right">
-                <article class="search">
-                    <div class="filters">
-                        <button id="filter">필터</button>
-                        <button id="direct">직접 검색</button>
-                    </div>
-                    <div class="change1 show">
-                        <input type="text" id="searchText" placeholder="검색할 영화 제목을 입력해주세요." required>
-                        <button id="click1">click</button>
-                    </div>
-                    <div class="change2 noshow">
-                        <div>장르</div>
-                        <select name="genre" id="genre">
-                            <option value="no">선택 안함</option>
-                            <option value="action">액션</option>
-                            <option value="comedy">코미디</option>
-                            <option value="romance">로맨스</option>
-                            <option value="drama">드라마</option>
-                            <option value="fantasy">판타지</option>
-                            <option value="horror">공포</option>
-                            <option value="mystery">미스터리</option>
-                            <option value="western">서부</option>
-                            <option value="thriller">스릴러</option>
-                        </select>
-                        <div>시대별</div>
-                        <select name="period" id="period">
-                            <option value="no">선택 안함</option>
-                            <option value="1970">1970년대</option>
-                            <option value="1980">1980년대</option>
-                            <option value="1990">1990년대</option>
-                            <option value="2000">2000년대</option>
-                            <option value="2010">2010년대</option>
-                            <option value="2020">2020년대</option>
-                        </select>
-                        <button id="click2">click</button>
-                    </div>
+                    </dl>
+                    <button id="filter-search-btn">
+                        <img src="./img/search_icon.png" alt="direct-search-icon" class="search-icon">
+                    </button>
+                </h2>
+            </header>
+            <section class="movies">
+                <h1 class="sr-only">Movie List</h1>
+                <!--동적 생성-->
+                <article class="movie">
+                    <!-- <h1 class="sr-only">영화 제목</h1> -->
+                    <!-- 영화 리스트 -->
                 </article>
-                <article class="screen">
+                <article class="movie">
+                    <!-- 영화 리스트 -->
+                </article>
+                <article class="movie">
+                    <!-- 영화 리스트 -->
+                </article>
+                <article class="movie"> 
+                    <!-- 영화 리스트 -->
+                </article>
+                <article class="movie">
+                    <!-- 영화 리스트 -->
+                </article>
+                <article class="movie">
+                    <!-- 영화 리스트 -->
+                </article>
+                <article class="movie">
+                    <!-- 영화 리스트 -->
+                </article>
+                <article class="movie">
+                    <!-- 영화 리스트 -->
+                </article>
+                <article class="movie"> 
+                    <!-- 영화 리스트 -->
+                </article>
+                <article class="movie">
+                    <!-- 영화 리스트 -->
                 </article>
             </section>
         </main>
-        <footer class="copyright">
-            <p>© 2022. recommendYourMovie Co. All rights reserved.</p>
-            <address>Contact webmaster for more information. 90076@naver.com</address>
-        </footer>
     </div>
+    <footer class="copyright">
+        <p>© 2022. recommendYourMovie Co. All rights reserved.</p>
+        <address>Contact webmaster for more information. 90076@naver.com</address>
+    </footer>
 </body>
 </html>
