@@ -30,37 +30,44 @@ searchBtn.addEventListener("click", () => {
 
 //////////////////////////////////////////////////////////
 
-// const searchClickBtn = document.querySelector("#click1");
-// let imgContainer = document.querySelector(".screen");
-// searchClickBtn.addEventListener("click", () => {
-//   const word = document.querySelector("#searchText").value;
-//   fetch("http://localhost:8080/search", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({ word: word }),
-//   })
-//     .then((res) => res.json())
-//     .then((json) => {
-//       imgContainer.innerHTML = "";
-//       const images = json.images;
-//       console.log(images);
-//       // imgContainer.innerHTML = "";
-//       for (let i = 0; i < images.length; i++) {
-//         if (images[i] === null) {
-//           continue;
-//         }
-//         const new_pTag1 = document.createElement("div");
-//         new_pTag1.setAttribute("class", "movie1");
-//         const new_pTag2 = document.createElement("img");
-//         new_pTag2.setAttribute("class", "imgs");
-//         new_pTag2.setAttribute("src", `${images[i]}`);
-//         new_pTag2.setAttribute("alt", "movie1");
-//         new_pTag1.appendChild(new_pTag2);
-//         imgContainer.appendChild(new_pTag1);
-//       }
-//     });
-// });
+const searchClickBtn = document.querySelector("#direct-search-btn");
+const imgContainer = document.querySelector(".movies");
+searchClickBtn.addEventListener("click", () => {
+  const word = document.querySelector(".func-direct-search > input").value;
+  fetch("http://localhost:8080/search", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ word: word }),
+  })
+    .then((res) => res.json())
+    .then((json) => {
+      imgContainer.innerHTML = "";
+      const movies = json.movies;
 
-// const filterClickBtn = document.querySelector("#click2");
+      movies.forEach((movie, idx) => {
+        const articleTag = document.createElement("article");
+        if (!movie.imgSrc.includes("poster_default")) {
+          articleTag.setAttribute("class", "movie");
+          articleTag.style.backgroundImage = `url(${movie.imgSrc})`;
+        } else {
+          articleTag.setAttribute("class", "noimg");
+        }
+        const h1Tag = document.createElement("h1");
+        h1Tag.innerText = movie.title;
+        const btnTag = document.createElement("button");
+        btnTag.setAttribute("id", `num${idx}`);
+        articleTag.appendChild(h1Tag);
+        articleTag.appendChild(btnTag);
+        imgContainer.appendChild(articleTag);
+      });
+    });
+});
+
+//////////////////////////////////////////////////////////모달창 만들 것
+imgContainer.addEventListener("click", (e) => {
+  if (e.target.id === "num1") {
+    console.log("모달창");
+  }
+});
