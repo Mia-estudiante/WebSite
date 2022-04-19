@@ -29,7 +29,7 @@ searchBtn.addEventListener("click", () => {
 });
 
 //////////////////////////////////////////////////////////
-
+let movies;
 const searchClickBtn = document.querySelector("#direct-search-btn");
 const imgContainer = document.querySelector(".movies");
 searchClickBtn.addEventListener("click", () => {
@@ -44,9 +44,10 @@ searchClickBtn.addEventListener("click", () => {
     .then((res) => res.json())
     .then((json) => {
       imgContainer.innerHTML = "";
-      const movies = json.movies;
+      movies = json.movies;
 
       movies.forEach((movie, idx) => {
+        //movie.title, movie.link, movie.imgSrc
         const articleTag = document.createElement("article");
         if (!movie.imgSrc.includes("poster_default")) {
           articleTag.setAttribute("class", "movie");
@@ -66,8 +67,41 @@ searchClickBtn.addEventListener("click", () => {
 });
 
 //////////////////////////////////////////////////////////모달창 만들 것
+const modal = document.querySelector(".modal");
+const body = document.querySelector("body");
+const closeBtn = document.querySelector("#close-btn");
+closeBtn.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
 imgContainer.addEventListener("click", (e) => {
-  if (e.target.id === "num1") {
-    console.log("모달창");
-  }
+  const regex = /[^0-9]/g; //id에 속한 idx를 추출하기 위한 정규식
+  const targetId = e.target.id;
+  console.log(targetId);
+  const movieIdx = parseInt(targetId.replace(regex, ""));
+  const title = movies[movieIdx].title;
+  const imgSrc = movies[movieIdx].imgSrc;
+  const link = movies[movieIdx].link;
+
+  //영화 정보 페이지 link를 주고 해당 영화 관련 정보들 받아오기
+  fetch("http://localhost:8080/modal", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ link: link }),
+  })
+    .then((res) => res.json())
+    .then((json) => {
+      const content = json.content;
+      //해당 영화에 대한 link를 주고 json을 통해 받은
+      //영화 관련 정보들 받아서 모달 생성
+      //제목 + 이미지
+      //1. 장르 (filter)
+      //2. 국적(filter)
+      //3. 개봉일(filter)
+      //4. 러닝타임
+      //5. 줄거리
+      modal.style.display = "block";
+    });
 });
