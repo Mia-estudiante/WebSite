@@ -68,6 +68,15 @@ searchClickBtn.addEventListener("click", () => {
 
 //////////////////////////////////////////////////////////모달창 만들 것
 const modal = document.querySelector(".modal");
+
+const posterEle = document.querySelector(".modal-body .poster"); //1. 포스터 이미지
+const titleEle = document.querySelector(".modal-body .info .title"); //2. 제목
+const genreEle = document.querySelector(".modal-body .info .genre"); //3. 장르
+const nationEle = document.querySelector(".modal-body .info .nation"); //4. 국가
+const timeEle = document.querySelector(".modal-body .info .time"); //5. 러닝타임
+const openEle = document.querySelector(".modal-body .info .open"); //6. 개봉일자
+const storyEle = document.querySelector(".modal-body .info .story"); //7. 줄거리
+
 const body = document.querySelector("body");
 const closeBtn = document.querySelector("#close-btn");
 closeBtn.addEventListener("click", () => {
@@ -94,14 +103,64 @@ imgContainer.addEventListener("click", (e) => {
     .then((res) => res.json())
     .then((json) => {
       const content = json.content;
+      //1. 포스터 이미지
+      posterEle.style.backgroundImage = `url(${imgSrc})`;
+
+      //2. 제목
+      titleEle.innerText = `${title}`;
+
+      //3. 장르
+      if (content.genre) {
+        genreEle.innerHTML = `
+        <strong>장르</strong> ${content.genre}
+        `;
+      } else {
+        genreEle.innerHTML = "";
+      }
+
+      //4. 국가
+      if (content.nation) {
+        nationEle.innerHTML = `
+        <strong>국가</strong> ${content.nation}
+        `;
+      } else {
+        nationEle.innerHTML = "";
+      }
+
+      //5. 러닝타임
+      if (content.time) {
+        timeEle.innerHTML = `
+        <strong>러닝타임</strong> ${content.time}
+        `;
+      } else {
+        timeEle.innerHTML = "";
+      }
+
+      //6. 개봉일
+      const open = content.date;
+      if (open) {
+        const year = open.slice(0, 4);
+        const month = open.slice(4, 6).replace("0", "");
+        const day = open.slice(6).replace("0", "");
+        openEle.innerHTML = ` 
+        <strong>개봉일자</strong> ${year}년 ${month}월 ${day}일
+        `;
+      } else {
+        openEle.innerHTML = "";
+      }
+
+      //7. 줄거리
+      if (content.story) {
+        storyEle.innerHTML = `
+        <strong>줄거리</strong><br>
+        ${content.story}
+        `;
+      } else {
+        storyEle.innerHTML = "";
+      }
+
       //해당 영화에 대한 link를 주고 json을 통해 받은
       //영화 관련 정보들 받아서 모달 생성
-      //제목 + 이미지
-      //1. 장르 (filter)
-      //2. 국적(filter)
-      //3. 개봉일(filter)
-      //4. 러닝타임
-      //5. 줄거리
       modal.style.display = "block";
     });
 });
