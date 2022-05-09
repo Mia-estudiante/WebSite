@@ -30,10 +30,12 @@ searchBtn.addEventListener("click", () => {
 
 //////////////////////////////////////////////////////////
 let movies;
+const loader = document.querySelector(".loader");
 const searchClickBtn = document.querySelector("#direct-search-btn");
 const imgContainer = document.querySelector(".movies");
 searchClickBtn.addEventListener("click", () => {
   const word = document.querySelector(".func-direct-search > input").value;
+  loader.style.display = "block";
   fetch("http://localhost:8080/search", {
     method: "POST",
     headers: {
@@ -43,6 +45,7 @@ searchClickBtn.addEventListener("click", () => {
   })
     .then((res) => res.json())
     .then((json) => {
+      loader.style.display = "none";
       imgContainer.innerHTML = "";
       movies = json.movies;
 
@@ -88,11 +91,23 @@ imgContainer.addEventListener("click", (e) => {
   const targetId = e.target.id;
   console.log(targetId);
   const movieIdx = parseInt(targetId.replace(regex, ""));
-  const title = movies[movieIdx].title;
+  console.log(typeof movies[movieIdx], movies[movieIdx]); //undefined => modal X
+
+  if (!movies[movieIdx]) {
+    return;
+  }
+
+  const title =
+    "title" in movies[movieIdx]
+      ? movies[movieIdx].title
+      : console.log(movies[movieIdx]);
   const imgSrc = movies[movieIdx].imgSrc;
   const link = movies[movieIdx].link;
 
+  //fetch 작업이 끝나면 다시 클릭하도록
+  console.log("user click !!!"); //사용자가 클릭하면 더 이상 클릭을 못 하도록
   //영화 정보 페이지 link를 주고 해당 영화 관련 정보들 받아오기
+  loader.style.display = "block";
   fetch("http://localhost:8080/modal", {
     method: "POST",
     headers: {
@@ -102,6 +117,8 @@ imgContainer.addEventListener("click", (e) => {
   })
     .then((res) => res.json())
     .then((json) => {
+      loader.style.display = "none";
+
       const content = json.content;
       //1. 포스터 이미지
       posterEle.style.backgroundImage = `url(${imgSrc})`;
