@@ -4,7 +4,10 @@ const searchBtn = document.querySelector("#direct-search");
 const searchText = document.querySelector(".func-direct-search");
 const searchFilters = document.querySelector(".func-filter-search");
 
+const imgContainer = document.querySelector(".movies");
+
 filterBtn.addEventListener("click", () => {
+  imgContainer.innerHTML = "";
   if (searchText.classList.contains("show")) {
     searchText.classList.remove("show");
   }
@@ -17,6 +20,7 @@ filterBtn.addEventListener("click", () => {
 });
 
 searchBtn.addEventListener("click", () => {
+  imgContainer.innerHTML = "";
   if (searchText.classList.contains("noshow")) {
     searchText.classList.remove("noshow");
   }
@@ -32,7 +36,6 @@ searchBtn.addEventListener("click", () => {
 let movies;
 const loader = document.querySelector(".loader");
 const searchClickBtn = document.querySelector("#direct-search-btn");
-const imgContainer = document.querySelector(".movies");
 searchClickBtn.addEventListener("click", () => {
   const word = document.querySelector(".func-direct-search > input").value;
   loader.style.display = "block";
