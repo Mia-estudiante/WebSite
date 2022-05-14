@@ -184,3 +184,58 @@ imgContainer.addEventListener("click", (e) => {
       modal.style.display = "block";
     });
 });
+
+//////////////////////////////////////////////////////////select bar
+
+const element = document.querySelector(".filter");
+
+const genreTitle = document.getElementById("genre-title");
+const yearTitle = document.getElementById("year-title");
+
+const genreSelect = document.querySelector(".genre-select");
+const yearSelect = document.querySelector(".year-select");
+// const countrySelect = document.querySelector(".country-select");
+
+const genreValue = document.querySelector("#genre-selected-value");
+const yearValue = document.querySelector("#year-selected-value");
+// const countryValue = document.querySelector("#country-selected-value");
+
+function customSelectTag(select) {
+  if (select.classList.contains("show")) {
+    select.classList.remove("show");
+    select.classList.add("noshow");
+  } else if (select.classList.contains("noshow")) {
+    select.classList.remove("noshow");
+    select.classList.add("show");
+  }
+}
+
+function changeValue(changedValue, select) {
+  select.addEventListener("click", (e) => {
+    changedValue.textContent = e.target.textContent;
+    customSelectTag(select);
+  });
+}
+
+genreValue.addEventListener("click", () => {
+  customSelectTag(genreSelect);
+});
+
+yearValue.addEventListener("click", () => {
+  customSelectTag(yearSelect);
+});
+
+genreTitle.addEventListener("click", () => {
+  customSelectTag(genreSelect);
+});
+
+yearTitle.addEventListener("click", () => {
+  customSelectTag(yearSelect);
+});
+
+// countryValue.addEventListener("click", () => {
+//   customSelectTag(countrySelect);
+// });
+
+changeValue(genreValue, genreSelect);
+changeValue(yearValue, yearSelect);

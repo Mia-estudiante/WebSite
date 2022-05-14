@@ -303,7 +303,7 @@ text-decoration: none;
   margin-bottom: 15px;
 }
 
-.main-content main header ul {
+.main-content > main > header > ul {
   width: 40%;
   display: flex;
   justify-content: space-around;
@@ -407,29 +407,50 @@ text-decoration: none;
 
 .main-content main header .func-filter-search {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
   width: 100%;
   height: auto;
+  font-size: 14px;
 }
 
-.main-content main header .func-filter-search dl {
+.func-filter-search > button {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
-.main-content main header .func-filter-search dl div {
-  font-weight: 700;
-  font-size: 14px;    
-  margin-right: 10px;
+.func-filter-search > .filter {
   display: flex;
+  width: 100%;
   justify-content: space-around;
-  align-items: center;
 }
 
-.main-content main header .func-filter-search dl div dt {
-  margin-right: 5px;
+.func-filter-search > .filter > li {
+  display: flex;
+}
+
+.func-filter-search > .filter > li > h3 {
+  height: 20%;
+  cursor: pointer;
+}
+
+div[id*="selected-value"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid orange;
+  padding: 2px;
+  cursor: pointer;
+}
+
+ul[class*="-select"] li {
+  padding: 5px;
+}
+
+ul[class*="-select"]>li:hover {
+  cursor: pointer;
+  background-color: orange;
 }
 
 /****************************************************/

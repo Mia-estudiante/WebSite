@@ -88,61 +88,78 @@
                         </button>
                     </li>
                 </ul>
-                <h2 aria-label="functions" class="func-direct-search show">
+                <h2 aria-label="func-direct-search" class="func-direct-search show">
                     <input type="text" placeholder="검색할 영화의 제목을 입력해주세요.">
                     <button id="direct-search-btn">
                         <img src="./img/search_icon.png" alt="direct-search-icon" class="search-icon">
                     </button>
                 </h2>
-                <h2 aria-label="functions" class="func-filter-search noshow">
-                    <dl>
-                        <div>
-                            <dt>장르</dt>
-                            <dd>
-                                <label for="genre">장르</label>
-                                <select name="genre" id="genre">
-                                    <option value="no">선택 안함</option>
-                                    <option value="action">액션</option>
-                                    <option value="comedy">코미디</option>
-                                    <option value="romance">로맨스</option>
-                                    <option value="drama">드라마</option>
-                                    <option value="fantasy">판타지</option>
-                                    <option value="horror">공포</option>
-                                    <option value="mystery">미스터리</option>
-                                    <option value="western">서부</option>
-                                    <option value="thriller">스릴러</option>
-                                </select>
-                            </dd>
-                        </div>
-                        <div>
-                            <dt>개봉연도</dt>
-                            <dd>
-                                <label for="period">개봉년도</label>
-                                <select name="period" id="period">
-                                    <option value="no">선택 안함</option>
-                                    <option value="1970">1970년대</option>
-                                    <option value="1980">1980년대</option>
-                                    <option value="1990">1990년대</option>
-                                    <option value="2000">2000년대</option>
-                                    <option value="2010">2010년대</option>
-                                    <option value="2020">2020년대</option>
-                                </select>
-                            </dd>
-                        </div>
-                        <div>
-                            <dt>국가</dt>
-                            <dd>
-                                <label for="country">국가</label>
-                                <select name="country" id="country">
-                                    <option value="no">선택 안함</option>
-                                    <option value="us">미국</option>
-                                    <option value="ko">한국</option>
-                                    <option value="ch">중국</option>
-                                    <option value="jp">일본</option>
-                                </select>
-                            </dd>
-                        </div>
-                    </dl>
+                <h2 aria-label="func-filter-search" class="func-filter-search noshow">
+                    <ul class="filter">
+                        <li id="genre">
+                            <h3 id="genre-title">장르</h3>
+                            <div>
+                                <div id="genre-selected-value">선택 안함</div>
+                                <ul class="genre-select noshow">
+                                    <li value="no" class="selected-value">선택 안함</li>
+                                    <li value="genre1">장르1</li>
+                                    <li value="genre2">장르2</li>
+                                    <li value="genre3">장르3</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li id="year">
+                            <h3 id="year-title">개봉년대</h3>
+                            <div>
+                                <div id="year-selected-value">선택 안함</div>
+                                <ul class="year-select noshow">
+                                    <li class="selected-value">선택 안함</li>
+                                    <li>2020년대</li>
+                                    <li>2010년대</li>
+                                    <li>2000년대</li>
+                                    <li>1990년대</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- <li id="country">
+                            <h3>제작국가</h3>
+                            <div class="column">
+                                <div id="country-selected-value">선택 안함</div>
+                                <ul class="country-select noshow">
+                                    <li class="selected-value">선택 안함</li>
+                                    <li>
+                                        <div class="country-tooltip">
+                                            <h4 id="a" title="category">ㄱ</h4>
+                                            <ul class="country-tooltiptext country-tooltip-right">
+                                                <li>가봉</li>
+                                                <li>그레나다</li>
+                                                <li>가나</li>
+                                            </ul>
+                                        </div>
+                                    </li> -->
+            
+            
+            <!--  -->
+                                    <!-- <li>
+                                        <div class="country-tooltip country-tooltip2">
+                                            <h4 id="b">ㄴ</h4>
+                                            <ul class="country-tooltiptext country-tooltiptext2 country-tooltip-right">
+                                                <li>가봉</li>
+                                                <li>그레나다</li>
+                                                <li>가나</li>
+                                            </ul>
+                                        </div>
+                                    </li> -->
+            <!--  -->
+            
+            
+                                    <!-- <li>ㄷ</li>
+                                    <li>ㄹ</li>
+                                    <li>ㅁ</li> -->
+                                <!-- </ul>
+                            </div>
+                        </li> -->
+                    </ul>
                     <button id="filter-search-btn">
                         <img src="./img/search_icon.png" alt="direct-search-icon" class="search-icon">
                     </button>
