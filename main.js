@@ -6,6 +6,9 @@ const searchFilters = document.querySelector(".func-filter-search");
 
 const imgContainer = document.querySelector(".movies");
 
+const modalFilter = document.querySelector(".modal-filter");
+const modalFilterCloseBtn = document.getElementById("modal-filter-close-btn");
+
 filterBtn.addEventListener("click", () => {
   imgContainer.innerHTML = "";
   if (searchText.classList.contains("show")) {
@@ -17,6 +20,12 @@ filterBtn.addEventListener("click", () => {
 
   searchText.classList.add("noshow");
   searchFilters.classList.add("show");
+
+  modalFilter.style.display = "block";
+});
+
+modalFilterCloseBtn.addEventListener("click", () => {
+  modalFilter.style.display = "none";
 });
 
 searchBtn.addEventListener("click", () => {
@@ -187,55 +196,191 @@ imgContainer.addEventListener("click", (e) => {
 
 //////////////////////////////////////////////////////////select bar
 
-const element = document.querySelector(".filter");
+let json = {
+  genre: 0,
+  open: 0,
+  nation: "",
+};
+
+// const element = document.querySelector(".filter");
 
 const genreTitle = document.getElementById("genre-title");
 const yearTitle = document.getElementById("year-title");
+const countryTitle = document.getElementById("country-title");
 
-const genreSelect = document.querySelector(".genre-select");
-const yearSelect = document.querySelector(".year-select");
-// const countrySelect = document.querySelector(".country-select");
-
-const genreValue = document.querySelector("#genre-selected-value");
-const yearValue = document.querySelector("#year-selected-value");
-// const countryValue = document.querySelector("#country-selected-value");
-
-function customSelectTag(select) {
-  if (select.classList.contains("show")) {
-    select.classList.remove("show");
-    select.classList.add("noshow");
-  } else if (select.classList.contains("noshow")) {
-    select.classList.remove("noshow");
-    select.classList.add("show");
-  }
-}
-
-function changeValue(changedValue, select) {
-  select.addEventListener("click", (e) => {
-    changedValue.textContent = e.target.textContent;
-    customSelectTag(select);
-  });
-}
-
-genreValue.addEventListener("click", () => {
-  customSelectTag(genreSelect);
-});
-
-yearValue.addEventListener("click", () => {
-  customSelectTag(yearSelect);
-});
+const genreContent = document.querySelector(".genre-content");
+const yearContent = document.querySelector(".year-content");
+const countryContent = document.querySelector(".country-content");
 
 genreTitle.addEventListener("click", () => {
-  customSelectTag(genreSelect);
+  // console.log(genreContent.classList);
+  console.log("genretitle");
+  if (yearContent.classList.contains("show")) {
+    console.log("yearcontent");
+    yearContent.classList.remove("show");
+    yearContent.classList.add("noshow");
+  }
+  if (countryContent.classList.contains("show")) {
+    countryContent.classList.remove("show");
+    countryContent.classList.add("noshow");
+  }
+  if (genreContent.classList.contains("noshow")) {
+    console.log("genrecontent");
+
+    genreContent.classList.remove("noshow");
+    genreContent.classList.add("show");
+  }
+
+  if (yearTitle.classList.contains("emphasis")) {
+    console.log("yearcontent");
+    yearTitle.classList.remove("emphasis");
+    // yearContent.classList.add("noshow");
+  }
+  if (countryTitle.classList.contains("emphasis")) {
+    countryTitle.classList.remove("emphasis");
+    // countryContent.classList.add("noshow");
+  }
+  if (!genreTitle.classList.contains("emphasis")) {
+    // console.log("genrecontent");
+
+    // genreContent.classList.remove("noshow");
+    genreTitle.classList.add("emphasis");
+  }
 });
 
 yearTitle.addEventListener("click", () => {
-  customSelectTag(yearSelect);
+  if (genreContent.classList.contains("show")) {
+    console.log("genecontent");
+    genreContent.classList.remove("show");
+    genreContent.classList.add("noshow");
+    console.log(genreContent.classList);
+  }
+  if (countryContent.classList.contains("show")) {
+    countryContent.classList.remove("show");
+    countryContent.classList.add("noshow");
+  }
+  if (yearContent.classList.contains("noshow")) {
+    console.log("yearcontent");
+    yearContent.classList.remove("noshow");
+    yearContent.classList.add("show");
+  }
+
+  if (genreTitle.classList.contains("emphasis")) {
+    // console.log("yearcontent");
+    genreTitle.classList.remove("emphasis");
+    // yearContent.classList.add("noshow");
+  }
+  if (countryTitle.classList.contains("emphasis")) {
+    countryTitle.classList.remove("emphasis");
+    // countryContent.classList.add("noshow");
+  }
+  if (!yearTitle.classList.contains("emphasis")) {
+    // console.log("genrecontent");
+
+    // genreContent.classList.remove("noshow");
+    yearTitle.classList.add("emphasis");
+  }
 });
 
-// countryValue.addEventListener("click", () => {
-//   customSelectTag(countrySelect);
+countryTitle.addEventListener("click", () => {
+  if (yearContent.classList.contains("show")) {
+    yearContent.classList.remove("show");
+    yearContent.classList.add("noshow");
+  }
+  if (genreContent.classList.contains("show")) {
+    genreContent.classList.remove("show");
+    genreContent.classList.add("noshow");
+  }
+  if (countryContent.classList.contains("noshow")) {
+    countryContent.classList.remove("noshow");
+    countryContent.classList.add("show");
+  }
+
+  if (genreTitle.classList.contains("emphasis")) {
+    // console.log("yearcontent");
+    genreTitle.classList.remove("emphasis");
+    // yearContent.classList.add("noshow");
+  }
+  if (yearTitle.classList.contains("emphasis")) {
+    yearTitle.classList.remove("emphasis");
+    // countryContent.classList.add("noshow");
+  }
+  if (!countryTitle.classList.contains("emphasis")) {
+    // console.log("genrecontent");
+
+    // genreContent.classList.remove("noshow");
+    countryTitle.classList.add("emphasis");
+  }
+});
+
+// const element = document.querySelector(".filter");
+
+// const genreTitle = document.getElementById("genre-title");
+// const yearTitle = document.getElementById("year-title");
+
+// const genreSelect = document.querySelector(".genre-select");
+// const yearSelect = document.querySelector(".year-select");
+// // const countrySelect = document.querySelector(".country-select");
+
+// const genreValue = document.querySelector("#genre-selected-value");
+// const yearValue = document.querySelector("#year-selected-value");
+// // const countryValue = document.querySelector("#country-selected-value");
+
+// function customSelectTag(select) {
+//   if (select.classList.contains("show")) {
+//     select.classList.remove("show");
+//     select.classList.add("noshow");
+//     // genreSelect.style.width = "50%";
+//   } else if (select.classList.contains("noshow")) {
+//     select.classList.remove("noshow");
+//     select.classList.add("show");
+//   }
+// }
+
+// function changeValue(changedValue, select) {
+//   select.addEventListener("click", (e) => {
+//     changedValue.textContent = e.target.textContent;
+//     customSelectTag(select);
+//   });
+// }
+
+// genreValue.addEventListener("click", () => {
+//   customSelectTag(genreSelect);
+//   // fetch("http://localhost:8080/filterGenre", {
+//   //   method: "POST",
+//   //   headers: {
+//   //     "Content-Type": "application/json",
+//   //   },
+//   //   // body: JSON.stringify({ word: word }),
+//   // }).then((res) => res.json());
 // });
 
-changeValue(genreValue, genreSelect);
-changeValue(yearValue, yearSelect);
+// yearValue.addEventListener("click", () => {
+//   customSelectTag(yearSelect);
+//   // fetch("http://localhost:8080/filterYear", {
+//   //   method: "POST",
+//   //   headers: {
+//   //     "Content-Type": "application/json",
+//   //   },
+//   //   // body: JSON.stringify({ word: word }),
+//   // }).then((res) => res.json());
+// });
+
+// genreTitle.addEventListener("click", () => {
+//   customSelectTag(genreSelect);
+// });
+
+// yearTitle.addEventListener("click", () => {
+//   customSelectTag(yearSelect);
+// });
+
+// // countryValue.addEventListener("click", () => {
+// //   customSelectTag(countrySelect);
+// // });
+
+// changeValue(genreValue, genreSelect);
+// changeValue(yearValue, yearSelect);
+
+// /////////////////////////////////////////////////////modal-filter
+// const modalFilter = document.querySelector(".modal-filter");
+// // const

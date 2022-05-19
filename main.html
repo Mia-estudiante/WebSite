@@ -88,23 +88,46 @@
                         </button>
                     </li>
                 </ul>
-                <h2 aria-label="func-direct-search" class="func-direct-search show">
+                <h2 aria-label="func-direct-search" class="func-direct-search visible">
                     <input type="text" placeholder="검색할 영화의 제목을 입력해주세요.">
                     <button id="direct-search-btn">
                         <img src="./img/search_icon.png" alt="direct-search-icon" class="search-icon">
                     </button>
                 </h2>
                 <h2 aria-label="func-filter-search" class="func-filter-search noshow">
-                    <ul class="filter">
+                    <!-- <ul class="filter">
                         <li id="genre">
                             <h3 id="genre-title">장르</h3>
                             <div>
                                 <div id="genre-selected-value">선택 안함</div>
                                 <ul class="genre-select noshow">
                                     <li value="no" class="selected-value">선택 안함</li>
-                                    <li value="genre1">장르1</li>
-                                    <li value="genre2">장르2</li>
-                                    <li value="genre3">장르3</li>
+                                    <li value="1">드라마</li>
+                                    <li value="2">판타지</li>
+                                    <li value="3">서부</li>
+                                    <li value="4">공포</li>
+                                    <li value="5">멜로/로맨스</li>
+                                    <li value="6">모험</li>
+                                    <li value="7">스릴러</li>
+                                    <li value="8">느와르</li>
+                                    <li value="9">컬트</li>
+                                    <li value="10">다큐멘터리</li>
+                                    <li value="11">코미디</li>
+                                    <li value="12">가족</li>
+                                    <li value="13">미스터리</li>
+                                    <li value="14">전쟁</li>
+                                    <li value="15">애니메이션</li>
+                                    <li value="16">범죄</li>
+                                    <li value="17">뮤지컬</li>
+                                    <li value="18">SF</li>
+                                    <li value="19">액션</li>
+                                    <li value="20">무협</li>
+                                    <li value="21">에로</li>
+                                    <li value="22">서스펜스</li>
+                                    <li value="23">서사</li>
+                                    <li value="24">블랙코미디</li>
+                                    <li value="25">실험</li>
+                                    <li value="29">공연실황</li>
                                 </ul>
                             </div>
                         </li>
@@ -118,12 +141,17 @@
                                     <li>2010년대</li>
                                     <li>2000년대</li>
                                     <li>1990년대</li>
+                                    <li>1980년대</li>
+                                    <li>1970년대</li>
+                                    <li>1960년대</li>
+                                    <li>1950년대</li>
+                                    <li>1940년대</li>
                                 </ul>
                             </div>
                         </li>
-                        <!-- <li id="country">
-                            <h3>제작국가</h3>
-                            <div class="column">
+                        <li id="country">
+                            <h3 id="country-title">제작국가</h3>
+                            <div>
                                 <div id="country-selected-value">선택 안함</div>
                                 <ul class="country-select noshow">
                                     <li class="selected-value">선택 안함</li>
@@ -136,33 +164,14 @@
                                                 <li>가나</li>
                                             </ul>
                                         </div>
-                                    </li> -->
-            
-            
-            <!--  -->
-                                    <!-- <li>
-                                        <div class="country-tooltip country-tooltip2">
-                                            <h4 id="b">ㄴ</h4>
-                                            <ul class="country-tooltiptext country-tooltiptext2 country-tooltip-right">
-                                                <li>가봉</li>
-                                                <li>그레나다</li>
-                                                <li>가나</li>
-                                            </ul>
-                                        </div>
-                                    </li> -->
-            <!--  -->
-            
-            
-                                    <!-- <li>ㄷ</li>
-                                    <li>ㄹ</li>
-                                    <li>ㅁ</li> -->
-                                <!-- </ul>
+                                    </li>
+                                </ul>
                             </div>
-                        </li> -->
+                        </li>
                     </ul>
                     <button id="filter-search-btn">
                         <img src="./img/search_icon.png" alt="direct-search-icon" class="search-icon">
-                    </button>
+                    </button> -->
                 </h2>
             </header>
             <section class="movies">
@@ -178,7 +187,7 @@
     <div class="modal">
         <div class="modal-body">
             <button id="close-btn">
-                <img src="./img/close.png" alt="close modal" id="close-img">
+                <img src="./img/close.png" alt="close modal" class="close-img">
             </button>
             <h1 class="poster"><!-- 포스터 --></h1>
             <div class="info">
@@ -192,6 +201,510 @@
                     <!-- 줄거리 -->
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="modal-filter">
+        <div class="modal-body-filter">
+            <button id="modal-filter-close-btn">
+                <img src="./img/close.png" alt="close modal" class="close-img">
+            </button>
+            <div class="filter">
+                    <div class="filter-title">
+                        <h3 id="genre-title">장르</h3>
+                        <h3 id="year-title">개봉년대</h3>
+                        <h3 id="country-title">제작국가</h3>
+                    </div>
+                    <div class="filter-content">
+                        <ul class="genre-content show">
+                            <li>
+                                <ul>
+                                    <li value="0" class="selected-value">선택 안함</li>
+                                    <li value="1">드라마</li>
+                                    <li value="2">판타지</li>
+                                    <li value="3">서부</li>
+                                    <li value="4">공포</li>
+                                    <li value="5">멜로/로맨스</li>
+                                    <li value="6">모험</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <ul>
+                                    <li value="7">스릴러</li>
+                                    <li value="8">느와르</li>
+                                    <li value="9">컬트</li>
+                                    <li value="10">다큐멘터리</li>
+                                    <li value="11">코미디</li>
+                                    <li value="12">가족</li>
+                                    <li value="13">미스터리</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <ul>
+                                    <li value="14">전쟁</li>
+                                    <li value="15">애니메이션</li>
+                                    <li value="16">범죄</li>
+                                    <li value="17">뮤지컬</li>
+                                    <li value="18">SF</li>
+                                    <li value="19">액션</li>
+                                    <li value="20">무협</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <ul>
+                                    <li value="21">에로</li>
+                                    <li value="22">서스펜스</li>
+                                    <li value="23">서사</li>
+                                    <li value="24">블랙코미디</li>
+                                    <li value="25">실험</li>
+                                    <li value="29">공연실황</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="year-content noshow">
+                            <li>
+                                <ul>
+                                    <li value="0" class="selected-value">선택 안함</li>
+                                    <li value="2020">2020년대</li>
+                                    <li value="2010">2010년대</li>
+                                    <li value="2000">2000년대</li>
+                                    <li value="1990">1990년대</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <ul>
+                                    <li value="198">1980년대</li>
+                                    <li value="197">1970년대</li>
+                                    <li value="196">1960년대</li>
+                                    <li value="195">1950년대</li>
+                                    <li value="194">1940년대</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="country-content noshow">
+                            <li value="no" class="selected-value">선택 안함</li>
+                            <!-- id값 달 것!! -->
+                            <li>
+                                <h4>ㄱ</h4>
+                                <ul>
+                                    <li>
+                                        <ul>
+                                            <li id="GA">가봉</li>
+                                            <li id="GD">그레나다</li>
+                                            <li id="GH">가나</li>
+                                            <li id="GL">그린랜드</li>
+                                            <li id="GN">기니</li>
+                                            <li id="GP">과델로프</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <ul>
+                                            <li>그리스</li>
+                                            <li>과테말라</li>
+                                            <li>괌</li>
+                                            <li>기니비사우</li>
+                                            <li>가이아나</li>
+                                            <li>국가불명</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h4>ㄴ</h4>
+                                <ul>
+                                    <li>
+                                        <ul>
+                                            <li>네덜란드 앤틸리스</li>
+                                            <li>남극</li>
+                                            <li>나미비아</li>
+                                            <li>니제르</li>
+                                            <li>노퍽 제도</li>
+                                            <li>나이지리아</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <ul>
+                                            <li>니카라과</li>
+                                            <li>네덜란드</li>
+                                            <li>노르웨이</li>
+                                            <li>네팔</li>
+                                            <li>뉴질랜드</li>
+                                            <li>남아프리카 공화국</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h4>ㄷ</h4>
+                                <ul>
+                                    <li>
+                                        <ul>
+                                            <li>독일</li>
+                                            <li>독일(구 동독)</li>
+                                            <li>독일(구 서독)</li>
+                                            <li>덴마크</li>
+                                            <li>도미니카</li>
+                                            <li>도미니카 공화국</li>
+                                            <li>대만</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h4>ㄹ</h4>
+                                <ul>
+                                    <li>
+                                        <ul>
+                                            <li>라오스 인민 민주주의 공화국</li>
+                                            <li>레바논</li>
+                                            <li>라이베리아</li>
+                                            <li>레소토</li>
+                                            <li>리투아니아</li>
+                                            <li>리투아니아(구 소련)</li>
+                                            <li>룩셈부르크</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <ul>
+                                            <li>라트비아</li>
+                                            <li>라트비아(구 소련)</li>
+                                            <li>리비아 아랍 자마힐리아</li>
+                                            <li>루마니아</li>
+                                            <li>러시아 연방</li>
+                                            <li>러시아(구 소련)</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h4>ㅁ</h4>
+                                <ul>
+                                    <li>
+                                        <ul>
+                                            <li>모로코</li>
+                                            <li>모나코</li>
+                                            <li>몰도바</li>
+                                            <li>마다가스카르</li>
+                                            <li>마샬 제도</li>
+                                            <li>마케도니아 구 유고 공화국</li>
+                                            <li>말리</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <ul>
+                                            <li>미얀마</li>
+                                            <li>몽골</li>
+                                            <li>마카오</li>
+                                            <li>마띠니끄</li>
+                                            <li>모리타니</li>
+                                            <li>몰타</li>
+                                            <li>모리셔스</li>
+                                            <li>몰디브</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <ul>
+                                            <li>말라위</li>
+                                            <li>멕시코</li>
+                                            <li>말레이지아</li>
+                                            <li>모잠비크</li>
+                                            <li>미국</li>
+                                            <li>메이요트</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h4>ㅂ</h4>
+                                <ul>
+                                    <li>
+                                        <ul>
+                                            <li>보스니아</li>
+                                            <li>방그라데시</li>
+                                            <li>벨기에</li>
+                                            <li>부르키나파소</li>
+                                            <li>불가리아</li>
+                                            <li>바레인</li>
+                                            <li>베닌</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <ul>
+                                            <li>버뮤다</li>
+                                            <li>브루나이 다루살람</li>
+                                            <li>볼리비아</li>
+                                            <li>브라질</li>
+                                            <li>바하마</li>
+                                            <li>부탄</li>
+                                            <li>보츠와나</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <ul>
+                                            <li>벨라루스</li>
+                                            <li>벨라루스(구 소련)</li>
+                                            <li>북한</li>
+                                            <li>베네수엘라</li>
+                                            <li>버진아일랜드(미국령 버진 군도)</li>
+                                            <li>베트남</li>
+                                            <li>바누아투</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h4>ㅅ</h4>
+                                <ul>
+                                    <li>
+                                        <ul>
+                                            <li>스위스</li>
+                                            <li>서 사하라</li>
+                                            <li>스페인</li>
+                                            <li>스리랑카</li>
+                                            <li>사우디아라비아</li>
+                                            <li>솔로몬 제도</li>
+                                            <li>수단</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <ul>
+                                            <li>스웨덴</li>
+                                            <li>싱가포르</li>
+                                            <li>슬로베니아</li>
+                                            <li>슬로바키아</li>
+                                            <li>시에라 레온</li>
+                                            <li>세네갈</li>
+                                            <li>소말리아</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <ul>
+                                            <li>수리남</li>
+                                            <li>시리아</li>
+                                            <li>스와질란드</li>
+                                            <li>사모아</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h4>ㅇ</h4>
+                                <ul>
+                                    <li>
+                                        <ul>
+                                            <li>앤도라</li>
+                                            <li>아랍 에미레이트 연합</li>
+                                            <li>아프가니스탄</li>
+                                            <li>알바니아</li>
+                                            <li>아르메니아</li>
+                                            <li>아르메니아(구 소련)</li>
+                                            <li>앙골라</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <ul>
+                                            <li>아르헨티나</li>
+                                            <li>오스트리아</li>
+                                            <li>오스트레일리아</li>
+                                            <li>아루바</li>
+                                            <li>아제르바이잔</li>
+                                            <li>알제리</li>
+                                            <li>에콰도르</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <ul>
+                                            <li>에스토니아</li>
+                                            <li>에스토니아(구 소련)</li>
+                                            <li>이집트</li>
+                                            <li>에티오피아</li>
+                                            <li>영국</li>
+                                            <li>온두라스</li>
+                                            <li>아이티</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <ul>
+                                            <li>인도네시아</li>
+                                            <li>아일랜드</li>
+                                            <li>이스라엘</li>
+                                            <li>인도</li>
+                                            <li>이라크</li>
+                                            <li>이란</li>
+                                            <li>아이슬란드</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <ul>
+                                            <li>이탈리아</li>
+                                            <li>요르단</li>
+                                            <li>일본</li>
+                                            <li>오만</li>
+                                            <li>엘살바도르</li>
+                                            <li>우크라이나</li>
+                                            <li>우간다</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <ul>
+                                            <li>우루과이</li>
+                                            <li>우즈베키스탄</li>
+                                            <li>예맨</li>
+                                            <li>유고슬라비아</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h4>ㅈ</h4>
+                                <ul>
+                                    <li>
+                                        <ul>
+                                            <li>중국</li>
+                                            <li>조지아</li>
+                                            <li>자메이카</li>
+                                            <li>잠비아</li>
+                                            <li>짐바브웨</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h4>ㅊ</h4>
+                                <ul>
+                                    <li>
+                                        <ul>
+                                            <li>칠레</li>
+                                            <li>체코</li>
+                                            <li>체코(구 체코슬로바키아)</li>
+                                            <li>채드</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h4>ㅋ</h4>
+                                <ul>
+                                    <li>
+                                        <ul>
+                                            <li>캐나다</li>
+                                            <li>콩고 민주 공화국</li>
+                                            <li>콩고</li>
+                                            <li>코트디부아르</li>
+                                            <li>카메룬</li>
+                                            <li>콜롬비아</li>
+                                            <li>코스타리카</li>
+                                            <li>쿠바</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <ul>
+                                            <li>카보베르데</li>
+                                            <li>키프로스</li>
+                                            <li>크로아티아</li>
+                                            <li>케냐</li>
+                                            <li>키르기스스탄</li>
+                                            <li>캄보니아</li>
+                                            <li>키리바시</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <ul>
+                                            <li>쿠웨이트</li>
+                                            <li>카자흐스탄</li>
+                                            <li>카자흐스탄(구 소련)</li>
+                                            <li>카타르</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h4>ㅌ</h4>
+                                <ul>
+                                    <li>
+                                        <ul>
+                                            <li>토고</li>
+                                            <li>태국</li>
+                                            <li>타지키스탄</li>
+                                            <li>투르크메니스탄</li>
+                                            <li>튀니지</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <ul>
+                                            <li>통가</li>
+                                            <li>터키</li>
+                                            <li>트리니다드 토바고</li>
+                                            <li>탄자니아 합중국</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h4>ㅍ</h4>
+                                <ul>
+                                    <li>
+                                        <ul>
+                                            <li>필란드</li>
+                                            <li>피지</li>
+                                            <li>페어로우 제도</li>
+                                            <li>프랑스</li>
+                                            <li>파나마</li>
+                                            <li>페루</li>
+                                            <li>파푸아 뉴기니</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <ul>
+                                            <li>필리핀</li>
+                                            <li>파키스탄</li>
+                                            <li>폴란드</li>
+                                            <li>폴란드(구 오스트리아-헝가리제국)</li>
+                                            <li>핏케언</li>
+                                            <li>푸에르토리코</li>
+                                            <li>포르투갈</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <ul>
+                                            <li>파라과이</li>
+                                            <li>팔레스타인</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h4>ㅎ</h4>
+                                <ul>
+                                    <li>
+                                        <ul>
+                                            <li>홍콩</li>
+                                            <li>헝가리</li>
+                                            <li>한국</li>
+                                            <li>헝가리(구 오스트리아-헝가리제국)</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="filter-selected-value">
+                        <div>
+                            <h3 id="genre-title">장르</h3>
+                            <div id="genre-selected-value">선택 안함</div>
+                        </div>
+                        <div>
+                            <h3 id="year-title">개봉년대</h3>
+                            <div id="year-selected-value">선택 안함</div>
+                        </div>
+                        <div>
+                            <h3 id="country-title">제작국가</h3>
+                            <div id="country-selected-value">선택 안함</div>
+                        </div>
+                    </div>
+            </div>
+            <button id="filter-search-btn">
+                <img src="./img/search_icon.png" alt="direct-search-icon" class="search-icon">
+            </button>
         </div>
     </div>
     <div class="loader">
