@@ -322,9 +322,136 @@ countryTitle.addEventListener("click", () => {
 // const yearSelect = document.querySelector(".year-select");
 // // const countrySelect = document.querySelector(".country-select");
 
-// const genreValue = document.querySelector("#genre-selected-value");
-// const yearValue = document.querySelector("#year-selected-value");
-// // const countryValue = document.querySelector("#country-selected-value");
+const genreValue = document.querySelector("#genre-selected-value");
+const yearValue = document.querySelector("#year-selected-value");
+const countryValue = document.querySelector("#country-selected-value");
+
+genreContent.addEventListener("click", (e) => {
+  console.log(e.target.value);
+  if (e.target.value === undefined || e.target.value === "0") {
+    return;
+  }
+
+  genreValue.textContent = e.target.textContent;
+
+  json.genre = e.target.value;
+  if (genreContent.classList.contains("show")) {
+    console.log("genrecontent");
+
+    genreContent.classList.remove("show");
+    genreContent.classList.add("noshow");
+  }
+});
+
+yearContent.addEventListener("click", (e) => {
+  console.log(e.target.value);
+
+  if (e.target.value === undefined || e.target.value === "0") {
+    return;
+  }
+
+  yearValue.textContent = e.target.textContent;
+
+  json.open = e.target.value;
+  if (yearContent.classList.contains("show")) {
+    console.log("yearcontent");
+
+    yearContent.classList.remove("show");
+    yearContent.classList.add("noshow");
+  }
+});
+
+countryContent.addEventListener("click", (e) => {
+  console.log(e.target.id);
+
+  if (e.target.value === undefined || e.target.value === "0") {
+    return;
+  }
+
+  countryValue.textContent = e.target.textContent;
+
+  json.nation = e.target.id;
+
+  if (countryContent.classList.contains("show")) {
+    console.log("yearcontent");
+
+    countryContent.classList.remove("show");
+    countryContent.classList.add("noshow");
+  }
+});
+
+const filterSearchBtn = document.getElementById("filter-search-btn");
+filterSearchBtn.addEventListener("click", () => {
+  console.log(json);
+  modalFilter.style.display = "none";
+  loader.style.display = "block";
+
+  fetch("http://localhost:8080/filterSearchModal", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ json: json }),
+  })
+    .then((res) => res.json())
+    .then((json) => {
+      console.log(json.movies);
+      //   loader.style.display = "none";
+      //   const content = json.content;
+      //   //1. 포스터 이미지
+      //   posterEle.style.backgroundImage = `url(${imgSrc})`;
+      //   //2. 제목
+      //   titleEle.innerText = `${title}`;
+      //   //3. 장르
+      //   if (content.genre) {
+      //     genreEle.innerHTML = `
+      //     <strong>장르</strong> ${content.genre}
+      //     `;
+      //   } else {
+      //     genreEle.innerHTML = "";
+      //   }
+      //   //4. 국가
+      //   if (content.nation) {
+      //     nationEle.innerHTML = `
+      //     <strong>국가</strong> ${content.nation}
+      //     `;
+      //   } else {
+      //     nationEle.innerHTML = "";
+      //   }
+      //   //5. 러닝타임
+      //   if (content.time) {
+      //     timeEle.innerHTML = `
+      //     <strong>러닝타임</strong> ${content.time}
+      //     `;
+      //   } else {
+      //     timeEle.innerHTML = "";
+      //   }
+      //   //6. 개봉일
+      //   const open = content.date;
+      //   if (open) {
+      //     const year = open.slice(0, 4);
+      //     const month = open.slice(4, 6).replace("0", "");
+      //     const day = open.slice(6).replace("0", "");
+      //     openEle.innerHTML = `
+      //     <strong>개봉일자</strong> ${year}년 ${month}월 ${day}일
+      //     `;
+      //   } else {
+      //     openEle.innerHTML = "";
+      //   }
+      //   //7. 줄거리
+      //   if (content.story) {
+      //     storyEle.innerHTML = `
+      //     <strong>줄거리</strong><br>
+      //     ${content.story}
+      //     `;
+      //   } else {
+      //     storyEle.innerHTML = "";
+      //   }
+      //   //해당 영화에 대한 link를 주고 json을 통해 받은
+      //   //영화 관련 정보들 받아서 모달 생성
+      //   modal.style.display = "block";
+    });
+});
 
 // function customSelectTag(select) {
 //   if (select.classList.contains("show")) {
