@@ -202,6 +202,12 @@ let json = {
   nation: "",
 };
 
+let texts = {
+  genre: "없음",
+  open: "없음",
+  nation: "없음",
+};
+
 // const element = document.querySelector(".filter");
 
 const genreTitle = document.getElementById("genre-title");
@@ -335,6 +341,7 @@ genreContent.addEventListener("click", (e) => {
   genreValue.textContent = e.target.textContent;
 
   json.genre = e.target.value;
+  texts.genre = e.target.innerText;
   if (genreContent.classList.contains("show")) {
     console.log("genrecontent");
 
@@ -353,6 +360,8 @@ yearContent.addEventListener("click", (e) => {
   yearValue.textContent = e.target.textContent;
 
   json.open = e.target.value;
+  texts.open = e.target.innerText;
+
   if (yearContent.classList.contains("show")) {
     console.log("yearcontent");
 
@@ -371,7 +380,9 @@ countryContent.addEventListener("click", (e) => {
   countryValue.textContent = e.target.textContent;
 
   json.nation = e.target.id;
+  texts.nation = e.target.innerText;
 
+  // console.log(e.target.value);
   if (countryContent.classList.contains("show")) {
     console.log("yearcontent");
 
@@ -381,8 +392,17 @@ countryContent.addEventListener("click", (e) => {
 });
 
 const filterSearchBtn = document.getElementById("filter-search-btn");
+const filterContent = document.querySelector(".func-filter-search-content");
 filterSearchBtn.addEventListener("click", () => {
-  console.log(json);
+  let txt = document.createTextNode(
+    `장르: ${texts.genre}, 개봉년대: ${texts.open}, 국가: ${texts.nation}`
+  );
+  if (filterContent.firstChild) {
+    filterContent.replaceChild(txt, filterContent.firstChild);
+  } else {
+    filterContent.appendChild(txt);
+  }
+
   modalFilter.style.display = "none";
   loader.style.display = "block";
 
@@ -395,7 +415,27 @@ filterSearchBtn.addEventListener("click", () => {
   })
     .then((res) => res.json())
     .then((json) => {
-      console.log(json.movies);
+      loader.style.display = "none";
+      imgContainer.innerHTML = "";
+      movies = json.movies;
+
+      movies.forEach((movie, idx) => {
+        //movie.title, movie.link, movie.imgSrc
+        const articleTag = document.createElement("article");
+        if (!movie.imgSrc.includes("poster_default")) {
+          articleTag.setAttribute("class", "movie");
+          articleTag.style.backgroundImage = `url(${movie.imgSrc})`;
+        } else {
+          articleTag.setAttribute("class", "noimg");
+        }
+        const h1Tag = document.createElement("h1");
+        h1Tag.innerText = movie.title;
+        const btnTag = document.createElement("button");
+        btnTag.setAttribute("id", `num${idx}`);
+        articleTag.appendChild(h1Tag);
+        articleTag.appendChild(btnTag);
+        imgContainer.appendChild(articleTag);
+      });
       //   loader.style.display = "none";
       //   const content = json.content;
       //   //1. 포스터 이미지
