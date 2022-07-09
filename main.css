@@ -713,6 +713,33 @@ ul[class*="-select"] {
   background-size: cover;
 }
 
+/**************************************************************** warning*/
+
+.visibleClass {
+  visibility: visible;
+}
+
+.hiddenClass {
+  visibility: hidden;
+}
+
+.warning {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding-top: 5px;
+  margin-left: 10px;
+  font-size: 10px;
+  color: red;
+  font-weight: 700;
+}
+
+.warning-icon {
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+}
+/**************************************************************** warning*/
 
 /*******************************/
 footer {
