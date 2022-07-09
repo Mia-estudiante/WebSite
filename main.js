@@ -64,7 +64,10 @@ searchClickBtn.addEventListener("click", () => {
       movies.forEach((movie, idx) => {
         //movie.title, movie.link, movie.imgSrc
         const articleTag = document.createElement("article");
-        if (!movie.imgSrc.includes("poster_default")) {
+        if (
+          !movie.imgSrc.includes("poster_default") &&
+          !movie.imgSrc.includes("dft_img")
+        ) {
           articleTag.setAttribute("class", "movie");
           articleTag.style.backgroundImage = `url(${movie.imgSrc})`;
         } else {
@@ -133,7 +136,15 @@ imgContainer.addEventListener("click", (e) => {
 
       const content = json.content;
       //1. 포스터 이미지
-      posterEle.style.backgroundImage = `url(${imgSrc})`;
+      if (
+        !imgSrc.includes("poster_default") &&
+        !imgSrc.includes("dft_img") &&
+        imgSrc !== ""
+      ) {
+        posterEle.style.backgroundImage = `url(${imgSrc})`;
+      } else {
+        posterEle.style.backgroundImage = `url(./img/noimg.jpg)`;
+      }
 
       //2. 제목
       titleEle.innerText = `${title}`;
@@ -196,7 +207,7 @@ imgContainer.addEventListener("click", (e) => {
 
 //////////////////////////////////////////////////////////select bar
 
-let json = {
+let filterJSON = {
   genre: 0,
   open: 0,
   nation: "",
@@ -340,7 +351,7 @@ genreContent.addEventListener("click", (e) => {
 
   genreValue.textContent = e.target.textContent;
 
-  json.genre = e.target.value;
+  filterJSON.genre = e.target.value;
   texts.genre = e.target.innerText;
   if (genreContent.classList.contains("show")) {
     console.log("genrecontent");
@@ -359,7 +370,7 @@ yearContent.addEventListener("click", (e) => {
 
   yearValue.textContent = e.target.textContent;
 
-  json.open = e.target.value;
+  filterJSON.open = e.target.value;
   texts.open = e.target.innerText;
 
   if (yearContent.classList.contains("show")) {
@@ -379,7 +390,7 @@ countryContent.addEventListener("click", (e) => {
 
   countryValue.textContent = e.target.textContent;
 
-  json.nation = e.target.id;
+  filterJSON.nation = e.target.id;
   texts.nation = e.target.innerText;
 
   // console.log(e.target.value);
@@ -393,7 +404,24 @@ countryContent.addEventListener("click", (e) => {
 
 const filterSearchBtn = document.getElementById("filter-search-btn");
 const filterContent = document.querySelector(".func-filter-search-content");
+const warning = document.querySelector(".warning");
 filterSearchBtn.addEventListener("click", () => {
+  if (
+    filterJSON.genre === 0 &&
+    filterJSON.nation === "" &&
+    filterJSON.open === 0
+  ) {
+    if (warning.classList.contains("hiddenClass")) {
+      warning.classList.remove("hiddenClass");
+      warning.classList.add("visibleClass");
+    }
+    return;
+  }
+
+  if (warning.classList.contains("visibleClass")) {
+    warning.classList.remove("visibleClass");
+    warning.classList.add("hiddenClass");
+  }
   let txt = document.createTextNode(
     `장르: ${texts.genre}, 개봉년대: ${texts.open}, 국가: ${texts.nation}`
   );
@@ -411,18 +439,22 @@ filterSearchBtn.addEventListener("click", () => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ json: json }),
+    body: JSON.stringify({ json: filterJSON }),
   })
     .then((res) => res.json())
     .then((json) => {
       loader.style.display = "none";
       imgContainer.innerHTML = "";
       movies = json.movies;
-
+      // console.log(movies);
       movies.forEach((movie, idx) => {
         //movie.title, movie.link, movie.imgSrc
         const articleTag = document.createElement("article");
-        if (!movie.imgSrc.includes("poster_default")) {
+        if (
+          !movie.imgSrc.includes("poster_default") &&
+          !movie.imgSrc.includes("dft_img") &&
+          movie.imgSrc !== ""
+        ) {
           articleTag.setAttribute("class", "movie");
           articleTag.style.backgroundImage = `url(${movie.imgSrc})`;
         } else {
@@ -436,118 +468,5 @@ filterSearchBtn.addEventListener("click", () => {
         articleTag.appendChild(btnTag);
         imgContainer.appendChild(articleTag);
       });
-      //   loader.style.display = "none";
-      //   const content = json.content;
-      //   //1. 포스터 이미지
-      //   posterEle.style.backgroundImage = `url(${imgSrc})`;
-      //   //2. 제목
-      //   titleEle.innerText = `${title}`;
-      //   //3. 장르
-      //   if (content.genre) {
-      //     genreEle.innerHTML = `
-      //     <strong>장르</strong> ${content.genre}
-      //     `;
-      //   } else {
-      //     genreEle.innerHTML = "";
-      //   }
-      //   //4. 국가
-      //   if (content.nation) {
-      //     nationEle.innerHTML = `
-      //     <strong>국가</strong> ${content.nation}
-      //     `;
-      //   } else {
-      //     nationEle.innerHTML = "";
-      //   }
-      //   //5. 러닝타임
-      //   if (content.time) {
-      //     timeEle.innerHTML = `
-      //     <strong>러닝타임</strong> ${content.time}
-      //     `;
-      //   } else {
-      //     timeEle.innerHTML = "";
-      //   }
-      //   //6. 개봉일
-      //   const open = content.date;
-      //   if (open) {
-      //     const year = open.slice(0, 4);
-      //     const month = open.slice(4, 6).replace("0", "");
-      //     const day = open.slice(6).replace("0", "");
-      //     openEle.innerHTML = `
-      //     <strong>개봉일자</strong> ${year}년 ${month}월 ${day}일
-      //     `;
-      //   } else {
-      //     openEle.innerHTML = "";
-      //   }
-      //   //7. 줄거리
-      //   if (content.story) {
-      //     storyEle.innerHTML = `
-      //     <strong>줄거리</strong><br>
-      //     ${content.story}
-      //     `;
-      //   } else {
-      //     storyEle.innerHTML = "";
-      //   }
-      //   //해당 영화에 대한 link를 주고 json을 통해 받은
-      //   //영화 관련 정보들 받아서 모달 생성
-      //   modal.style.display = "block";
     });
 });
-
-// function customSelectTag(select) {
-//   if (select.classList.contains("show")) {
-//     select.classList.remove("show");
-//     select.classList.add("noshow");
-//     // genreSelect.style.width = "50%";
-//   } else if (select.classList.contains("noshow")) {
-//     select.classList.remove("noshow");
-//     select.classList.add("show");
-//   }
-// }
-
-// function changeValue(changedValue, select) {
-//   select.addEventListener("click", (e) => {
-//     changedValue.textContent = e.target.textContent;
-//     customSelectTag(select);
-//   });
-// }
-
-// genreValue.addEventListener("click", () => {
-//   customSelectTag(genreSelect);
-//   // fetch("http://localhost:8080/filterGenre", {
-//   //   method: "POST",
-//   //   headers: {
-//   //     "Content-Type": "application/json",
-//   //   },
-//   //   // body: JSON.stringify({ word: word }),
-//   // }).then((res) => res.json());
-// });
-
-// yearValue.addEventListener("click", () => {
-//   customSelectTag(yearSelect);
-//   // fetch("http://localhost:8080/filterYear", {
-//   //   method: "POST",
-//   //   headers: {
-//   //     "Content-Type": "application/json",
-//   //   },
-//   //   // body: JSON.stringify({ word: word }),
-//   // }).then((res) => res.json());
-// });
-
-// genreTitle.addEventListener("click", () => {
-//   customSelectTag(genreSelect);
-// });
-
-// yearTitle.addEventListener("click", () => {
-//   customSelectTag(yearSelect);
-// });
-
-// // countryValue.addEventListener("click", () => {
-// //   customSelectTag(countrySelect);
-// // });
-
-// changeValue(genreValue, genreSelect);
-// changeValue(yearValue, yearSelect);
-
-// /////////////////////////////////////////////////////modal-filter
-// const modalFilter = document.querySelector(".modal-filter");
-// // const
